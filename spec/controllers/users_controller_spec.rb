@@ -1,14 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  before(:each) do
-    first = User.new(name: 'Sanya', last_name: 'Bogomolov', email: 'a.starwars.d@gmail.com')
-    first.generate_password 'nice_password'
-    first.save
-
-    second = User.new(name: 'Fedor', last_name: 'Tsarenki', email: 'pidor@gmail.com')
-    second.generate_password 'nice_password'
-    second.save
+  before(:all) do
+    create_users
 
   end
 
@@ -22,7 +16,6 @@ RSpec.describe UsersController, type: :controller do
   it "should get sanya" do
     get :show, {id: 1}
     json = JSON.parse @response.body
-    # byebug
     expect(json['name']).to eql('Sanya')
     expect(json['last_name']).to eql('Bogomolov')
   end
@@ -30,7 +23,6 @@ RSpec.describe UsersController, type: :controller do
   it "should get nothing" do
     get :show, {id: 3}
     json = JSON.parse @response.body
-    # byebug
     expect(json['error']).to eql('no such user')
   end
 

@@ -19,4 +19,15 @@ class Box < ActiveRecord::Base
     end
 
   end
+
+  def add_argument(title, content, expires)
+    Argument.create(title: title, description: content, expires: expires, box_id: self.id)
+  end
+
+  def remove_argument(id)
+    argument = Argument.find_by(id: id)
+    if argument
+      argument.destroy
+    end
+  end
 end

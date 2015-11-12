@@ -2,6 +2,7 @@ class Box < ActiveRecord::Base
   validates :name, presence: true, length: {minimum: 4}
   has_many :box_relations, foreign_key: :box_id
   has_many :users, through: :box_relations, source: :user
+  has_many :arguments, foreign_key: :box_id
 
   def add_users(users)
     users.each do |user_id|

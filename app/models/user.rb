@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :box_relations, foreign_key: :user_id
   has_many :boxes, through: :box_relations, source: :box
+  has_many :arguments, through: :boxes, source: :arguments
 
   def generate_password(password)
     if password.length < 8

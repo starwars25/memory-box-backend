@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Argument, type: :model do
   before(:each) do
     clean
+    create_users
+
   end
 
   it 'should not create argument' do

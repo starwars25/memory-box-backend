@@ -16,14 +16,15 @@ RSpec.describe Box, type: :model do
 
   it 'should not create box with short name' do
     before = Box.count
-    Box.create(name: 'foo')
+    Box.create(title: 'foo')
     expect(before).to eql Box.count
   end
 
   it 'should create box' do
     before = Box.count
-    Box.create(name: 'foobar')
+    box = Box.create(title: 'foobar')
     expect(before).to eql Box.count - 1
+    expect(box.date_of_establishment).not_to eql nil
   end
 
   it 'should add users' do
@@ -32,7 +33,7 @@ RSpec.describe Box, type: :model do
     expect(@first.boxes.count).to eql 0
     expect(@second.boxes.count).to eql 0
 
-    box = Box.create(name: 'Test box')
+    box = Box.create(title: 'Test box')
     expect(box.users.count).to eql 0
     box.add_users([@first.id, @second.id])
     expect(BoxRelation.count).to eql (before_relations + 2)
@@ -47,7 +48,7 @@ RSpec.describe Box, type: :model do
     expect(@first.boxes.count).to eql 0
     expect(@second.boxes.count).to eql 0
 
-    box = Box.create(name: 'Test box')
+    box = Box.create(title: 'Test box')
     expect(box.users.count).to eql 0
     box.add_users([@first.id, 3])
     expect(BoxRelation.count).to eql (before_relations + 1)
@@ -62,7 +63,7 @@ RSpec.describe Box, type: :model do
     expect(@first.boxes.count).to eql 0
     expect(@second.boxes.count).to eql 0
 
-    box = Box.create(name: 'Test box')
+    box = Box.create(title: 'Test box')
     expect(box.users.count).to eql 0
     box.add_users([@first.id, @second.id])
     expect(BoxRelation.count).to eql (before_relations + 2)

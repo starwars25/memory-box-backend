@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :last_name, presence: true
   validates :password_digest, presence: true
 
   has_many :box_relations, foreign_key: :user_id

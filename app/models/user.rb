@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  attr_accessor :auth_token
+
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password_digest, presence: true
@@ -12,5 +14,10 @@ class User < ActiveRecord::Base
       raise 'Password too short'
     end
     self.password_digest = BCrypt::Password.create(password)
+  end
+
+  def generate_auth_digest
+    self.auth_token = SecureRandom.uuid
+    update_attribute(:authentication_digest, BCrypt::Password.create(self.auth_token))
   end
 end

@@ -4,6 +4,7 @@ RSpec.describe UsersController, type: :controller do
   before(:all) do
     clean
     create_users
+    @token = log_in @first
 
   end
 
@@ -16,32 +17,57 @@ RSpec.describe UsersController, type: :controller do
   end
 
   it "should get sanya" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
+
     get :show, {id: @first.id}
     json = JSON.parse @response.body
     expect(json['name']).to eql(@first.name)
   end
 
   it "should get nothing" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     get :show, {id: 3}
     json = JSON.parse @response.body
     expect(json['error']).to eql('no such user')
   end
 
   it "should update user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     put :update, {id: @first.id, user: {name: 'Alexander'}}, format: :json
     json = JSON.parse @response.body
     expect(json['result']).to eql('success')
     expect(User.find(@first.id).name).to eql('Alexander')
   end
 
+  it "should not update user cause wrong user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
+    put :update, {id: @second.id, user: {name: 'Alexander'}}, format: :json
+    json = JSON.parse @response.body
+    expect(json['description']).to eql('wrong user')
+  end
+
+  it "should not update user cause not logged in" do
+    put :update, {id: @first.id, user: {name: 'Alexander'}}, format: :json
+    json = JSON.parse @response.body
+    expect(json['description']).to eql('not logged in')
+  end
+
   it "should update invalid user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     put :update, {id: 3, user: {name: 'Alexander'}}, format: :json
     json = JSON.parse @response.body
-    expect(json['error']).to eql('no such user')
+    expect(json['description']).to eql('wrong user')
     expect(User.find(@first.id).name).to eql(@first.name)
   end
 
   it "should not update user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     name = @first.name
     put :update, {id: @first.id, user: {name: ''}}, format: :json
     json = JSON.parse @response.body
@@ -49,7 +75,11 @@ RSpec.describe UsersController, type: :controller do
     expect(User.find(@first.id).name).to eql(name)
   end
 
+
+
   it "should delete user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     before = User.count
     delete :destroy, {id: @first.id}
     json = JSON.parse @response.body
@@ -58,10 +88,22 @@ RSpec.describe UsersController, type: :controller do
   end
 
   it "should not delete user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
     before = User.count
     delete :destroy, {id: 3}
     json = JSON.parse @response.body
-    expect(json['error']).to eql('no such user')
+    expect(json['description']).to eql('wrong user')
+    expect(User.count).to eql(before)
+  end
+
+  it "should not delete user" do
+    @request.headers['token'] = @token
+    @request.headers['user-id'] = @first.id
+    before = User.count
+    delete :destroy, {id: @second.id}
+    json = JSON.parse @response.body
+    expect(json['description']).to eql('wrong user')
     expect(User.count).to eql(before)
   end
 

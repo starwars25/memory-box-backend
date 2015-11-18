@@ -14,4 +14,9 @@ module TestHelper
     DatabaseCleaner.clean
 
   end
+
+  def log_in(user)
+    user.generate_auth_digest
+    user.auth_token
+  end
 end

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :logged_in, only: [:update, :destroy, :show]
+  before_action :correct_user, only: [:update, :destroy]
   def index
     render json: User.all
   end
@@ -13,6 +15,7 @@ class UsersController < ApplicationController
   end
 
   def update
+
     user = User.find_by(id: params[:id])
     if user
       if user.update_attributes(user_params)
@@ -61,4 +64,16 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :last_name, :email)
   end
+
+  def logged_in
+    render json: {result: 'failure', description: 'not logged in'} unless current_user
+  end
+
+  def correct_user
+    render json: {result: 'failure', description: 'wrong user'} unless current_user.id == params[:id].to_i
+  end
+
+
+
+
 end

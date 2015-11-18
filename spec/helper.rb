@@ -4,9 +4,14 @@ module TestHelper
     @first.generate_password 'nice_password'
     @first.save
 
-    @second = User.new(name: 'Tsarenko', email: 'pidor@gmail.com')
+    @second = User.new(name: 'Fedor Tsarenko', email: 'pidor@gmail.com')
     @second.generate_password 'nice_password'
     @second.save
+
+
+    @third = User.new(name: 'Den Yarinskih', email: 'den@gmail.com')
+    @third.generate_password 'nice_password'
+    @third.save
   end
 
   def clean

@@ -7,6 +7,7 @@ class Box < ActiveRecord::Base
   has_many :arguments, foreign_key: :box_id
 
   def add_users(users)
+    # byebug
     users.each do |user_id|
       user = User.find_by(id: user_id)
       next unless user
@@ -19,6 +20,16 @@ class Box < ActiveRecord::Base
     relation.each do |r|
       r.destroy
     end
+
+  end
+
+  def users_ids
+    ids = []
+    self.users.each do |u|
+      ids << u.id
+    end
+    ids
+
 
   end
 

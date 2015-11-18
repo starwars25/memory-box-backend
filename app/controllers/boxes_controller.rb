@@ -14,6 +14,16 @@ class BoxesController < ApplicationController
     end
   end
 
+  def remove
+    box = Box.find_by(id: params[:id])
+    if box && box.users_ids.include?(current_user.id)
+      box.remove_user(params[:box][:user_id])
+      render json: {result: 'success'}
+    else
+      render json: {result: 'failure', description: 'no such box'}
+    end
+  end
+
 
 
   private

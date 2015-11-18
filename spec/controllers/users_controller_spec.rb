@@ -28,7 +28,7 @@ RSpec.describe UsersController, type: :controller do
   it "should get nothing" do
     @request.headers['token'] = @token
     @request.headers['user-id'] = @first.id
-    get :show, {id: 3}
+    get :show, {id: 4}
     json = JSON.parse @response.body
     expect(json['error']).to eql('no such user')
   end

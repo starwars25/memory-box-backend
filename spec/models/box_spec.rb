@@ -50,7 +50,8 @@ RSpec.describe Box, type: :model do
 
     box = Box.create(title: 'Test box')
     expect(box.users.count).to eql 0
-    box.add_users([@first.id, 3])
+    box.add_users([@first.id, 4])
+
     expect(BoxRelation.count).to eql (before_relations + 1)
     expect(box.users.count).to eql 1
     expect(@first.boxes.count).to eql 1

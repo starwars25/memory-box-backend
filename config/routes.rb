@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :authentication, only: [:create]
   resources :boxes, only: [:create]
-  # The priority is based upon order of creation: first created -> highest priority.
+
+  post 'boxes/remove/:id', :to => 'boxes#remove'
+    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

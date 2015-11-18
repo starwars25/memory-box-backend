@@ -7,13 +7,14 @@ class Box < ActiveRecord::Base
   has_many :arguments, foreign_key: :box_id
 
   def add_users(users)
-    # byebug
     users.each do |user_id|
       user = User.find_by(id: user_id)
       next unless user
       BoxRelation.create(user_id: user_id, box_id: self.id)
     end
   end
+
+
 
   def remove_user(user_id)
     relation = BoxRelation.where("user_id = #{user_id} AND box_id = #{self.id}")

@@ -4,7 +4,7 @@ RSpec.describe Argument, type: :model do
   before(:each) do
     clean
     create_users
-    @box = Box.create(name: 'TextBox')
+    @box = Box.create(title: 'TextBox')
     @box.add_users [@first.id, @second.id]
 
   end
@@ -35,8 +35,9 @@ RSpec.describe Argument, type: :model do
 
   it 'should create argument' do
     before = Argument.count
-    Argument.create(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
+    argument = Argument.create(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
     expect(Argument.count).to eql (before + 1)
+    expect(argument.established).not_to eql nil
 
   end
 

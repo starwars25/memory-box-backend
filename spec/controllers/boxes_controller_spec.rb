@@ -119,5 +119,50 @@ RSpec.describe BoxesController, type: :controller do
     expect(json['description']).to eql 'no such box'
   end
 
+  it "test add user" do
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    before = @first_box.users.count
+    user_before = @third.boxes.count
+    post :add, id: @first_box.id, box: {users: [@third.id]}
+    json = JSON.parse @response.body
+    @first_box.reload
+    @third.reload
+    expect(@third.boxes.count).to eql(user_before + 1)
+    expect(@first_box.users.count).to eql(before + 1)
+    expect(json['result']).to eql('success')
+
+
+    # before = @first_box.users.count
+    # user_before = @third.boxes.count
+    # post :add, id: @first_box.id, box: {users: [@third.id]}
+    # json = JSON.parse @response.body
+    # @first_box.reload
+    # @third.reload
+    # expect(@third.boxes.count).to eql(user_before)
+    # expect(@first_box.users.count).to eql(before)
+    # expect(json['result']).to eql('success')
+
+
+
+    before = @second_box.users.count
+    user_before = @first.boxes.count
+    post :add, id: @second_box.id, box: {users: [@first.id]}
+    json = JSON.parse @response.body
+    @second_box.reload
+    @first.reload
+    expect(@first.boxes.count).to eql(user_before)
+    expect(@second_box.users.count).to eql(before)
+    expect(json['description']).to eql('not a member of the box')
+
+    post :add, id: 1000, box: {users: [@first.id]}
+    json = JSON.parse @response.body
+    expect(json['description']).to eql 'no such box'
+
+
+
+  end
+
+
 
 end

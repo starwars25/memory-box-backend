@@ -16,7 +16,7 @@ module TestHelper
 
   def create_boxes
     @first_box = Box.create(title: 'FirstBox')
-    @first_box.add_users([@first.id, @second.id, @third.id])
+    @first_box.add_users([@first.id, @second.id])
 
     @second_box = Box.create(title: 'SecondBox')
     @second_box.add_users([@second.id, @third.id])

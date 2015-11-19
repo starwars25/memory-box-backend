@@ -10,6 +10,9 @@ class Box < ActiveRecord::Base
     users.each do |user_id|
       user = User.find_by(id: user_id)
       next unless user
+      # next if is_member user_id
+      # byebug
+      # byebug
       BoxRelation.create(user_id: user_id, box_id: self.id)
     end
   end
@@ -17,7 +20,6 @@ class Box < ActiveRecord::Base
   def is_member(user_id)
     self.users_ids.include? user_id
   end
-
 
 
   def remove_user(user_id)

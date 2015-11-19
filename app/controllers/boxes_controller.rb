@@ -7,6 +7,7 @@ class BoxesController < ApplicationController
     if box
       box.add_users [current_user.id]
       box.add_users params[:box][:users]
+      # byebug
       ids = box.users_ids
       render json: {result: 'success', title: box.title, members: ids}
     else
@@ -69,6 +70,22 @@ class BoxesController < ApplicationController
     else
       render json: {result: 'failure', description: 'no such box'}
     end
+  end
+
+  def add
+    box = Box.find_by(id: params[:id])
+    if box
+      if box.is_member current_user.id
+        box.add_users(params[:box][:users])
+        render json: {result: 'success'}
+      else
+        render json: {result: 'failure', description: 'not a member of the box'}
+      end
+
+    else
+      render json: {result: 'failure', description: 'no such box'}
+    end
+
   end
 
   private

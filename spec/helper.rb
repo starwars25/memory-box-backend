@@ -14,6 +14,14 @@ module TestHelper
     @third.save
   end
 
+  def create_boxes
+    @first_box = Box.create(title: 'FirstBox')
+    @first_box.add_users([@first.id, @second.id, @third.id])
+
+    @second_box = Box.create(title: 'SecondBox')
+    @second_box.add_users([@second.id, @third.id])
+  end
+
   def clean
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean

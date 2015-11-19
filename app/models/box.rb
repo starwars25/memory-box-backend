@@ -14,6 +14,10 @@ class Box < ActiveRecord::Base
     end
   end
 
+  def is_member(user_id)
+    self.users_ids.include? user_id
+  end
+
 
 
   def remove_user(user_id)

@@ -24,6 +24,19 @@ class BoxesController < ApplicationController
     end
   end
 
+  def show
+    box = Box.find_by(id: params[:id])
+    if box
+      if box.is_member current_user.id
+        render json: box
+      else
+        render json: {result: 'failure', description: 'not a member of the box'}
+      end
+    else
+      render json: {result: 'failure', description: 'no such box'}
+    end
+  end
+
 
 
   private

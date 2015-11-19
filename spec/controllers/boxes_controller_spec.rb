@@ -62,5 +62,62 @@ RSpec.describe BoxesController, type: :controller do
     expect(json['description']).to eql 'no such box'
   end
 
+  it "test update" do
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    put :update, id: @first_box.id, box: {title: 'Another title'}, format: :json
+    json = JSON.parse @response.body
+    @first_box.reload
+    expect(@first_box.title).to eql('Another title')
+    expect(json['result']).to eql 'success'
+
+
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    put :update, id: @first_box.id, box: {title: ''}, format: :json
+    json = JSON.parse @response.body
+    @first_box.reload
+    expect(@first_box.title).to eql('Another title')
+    expect(json['description']).to eql 'invalid params'
+
+    put :update, id: @second_box.id, box: {title: 'Another title'}, format: :json
+    json = JSON.parse @response.body
+
+    @first_box.reload
+    expect(@second_box.title).to eql('SecondBox')
+    expect(json['description']).to eql 'not a member of the box'
+
+    put :update, id: 100, box: {title: 'Another title'}, format: :json
+    json = JSON.parse @response.body
+
+    expect(json['description']).to eql 'no such box'
+
+
+
+  end
+
+  it "test destroy" do
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    before = Box.count
+    delete :destroy, id: @first_box.id
+    json = JSON.parse @response.body
+    expect(Box.count).to eql(before - 1)
+    expect(json['result']).to eql 'success'
+
+    before = Box.count
+    delete :destroy, id: @second_box.id
+    json = JSON.parse @response.body
+    expect(Box.count).to eql(before)
+    expect(json['description']).to eql 'not a member of the box'
+
+
+    before = Box.count
+    delete :destroy, id: 100
+    json = JSON.parse @response.body
+    expect(Box.count).to eql(before)
+    expect(json['description']).to eql 'no such box'
+  end
+
 
 end

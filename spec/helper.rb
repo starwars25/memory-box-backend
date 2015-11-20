@@ -22,6 +22,10 @@ module TestHelper
     @second_box.add_users([@second.id, @third.id])
   end
 
+  def create_arguments
+    @first_argument = Argument.create(title: 'TestArgument', description: 'Description', box_id: @first_box.id, expires: 1.year.from_now)
+  end
+
   def clean
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean

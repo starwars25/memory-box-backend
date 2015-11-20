@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :authentication, only: [:create]
   resources :boxes, only: [:create, :show, :update, :destroy]
-
+  resources :arguments, only: [:show]
   post 'boxes/remove/:id', :to => 'boxes#remove'
   post 'boxes/add/:id', :to => 'boxes#add'
     # The priority is based upon order of creation: first created -> highest priority.

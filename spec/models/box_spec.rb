@@ -82,5 +82,21 @@ RSpec.describe Box, type: :model do
 
   end
 
+  it "should create and add user to box" do
+    before = Box.count
+    box = Box.create(title: 'foobar')
+    expect(before).to eql Box.count - 1
+    expect(box.date_of_establishment).not_to eql nil
+    before = box.users.count
+    box.add_user @first
+    box.add_user @second
+    box.reload
+    expect(box.users.count).to eql before + 2
+    box.add_user @first
+    box.reload
+    expect(box.users.count).to eql before + 2
+
+  end
+
 
 end

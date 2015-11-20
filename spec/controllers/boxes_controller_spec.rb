@@ -133,15 +133,16 @@ RSpec.describe BoxesController, type: :controller do
     expect(json['result']).to eql('success')
 
 
-    # before = @first_box.users.count
-    # user_before = @third.boxes.count
-    # post :add, id: @first_box.id, box: {users: [@third.id]}
-    # json = JSON.parse @response.body
-    # @first_box.reload
-    # @third.reload
-    # expect(@third.boxes.count).to eql(user_before)
-    # expect(@first_box.users.count).to eql(before)
-    # expect(json['result']).to eql('success')
+    before = @first_box.users.count
+    user_before = @third.boxes.count
+    post :add, id: @first_box.id, box: {users: [@third.id]}
+    json = JSON.parse @response.body
+    @first_box.reload
+    @third.reload
+    expect(@third.boxes.count).to eql(user_before)
+    expect(@first_box.users.count).to eql(before)
+    expect(json['result']).to eql('success')
+
 
 
 

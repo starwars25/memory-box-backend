@@ -76,7 +76,7 @@ class BoxesController < ApplicationController
     box = Box.find_by(id: params[:id])
     if box
       if box.is_member current_user.id
-        box.add_users(params[:box][:users])
+        params[:box][:users].each {|u| box.add_user u}
         render json: {result: 'success'}
       else
         render json: {result: 'failure', description: 'not a member of the box'}

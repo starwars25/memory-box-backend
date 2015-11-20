@@ -6,6 +6,8 @@ class Box < ActiveRecord::Base
   has_many :users, through: :box_relations, source: :user
   has_many :arguments, foreign_key: :box_id
 
+
+  # Deprecated
   def add_users(users)
     users.each do |user_id|
       user = User.find_by(id: user_id)
@@ -13,8 +15,13 @@ class Box < ActiveRecord::Base
       # next if is_member user_id
       # byebug
       # byebug
-      BoxRelation.create(user_id: user_id, box_id: self.id)
+      BoxRelation.create(user_id: user.id, box_id: self.id)
     end
+  end
+
+  def add_user(user_id)
+    user = User.find_by(id: user_id)
+    BoxRelation.create(user_id: user.id, box_id: self.id) if user && !is_member(user.id)
   end
 
   def is_member(user_id)

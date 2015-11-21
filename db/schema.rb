@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121085834) do
+ActiveRecord::Schema.define(version: 20151121091903) do
 
   create_table "arguments", force: :cascade do |t|
     t.string   "title"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151121085834) do
     t.datetime "updated_at",            null: false
     t.date     "date_of_birth"
     t.string   "name"
+    t.string   "avatar"
   end
 
 end

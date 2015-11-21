@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
+  mount_uploader :avatar, AvatarUploader
+
   attr_accessor :auth_token
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password_digest, presence: true
+  validates :avatar, presence: true
 
   has_many :box_relations, foreign_key: :user_id
   has_many :boxes, through: :box_relations, source: :box

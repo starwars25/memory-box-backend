@@ -21,6 +21,10 @@ RSpec.describe User, type: :model do
     before = User.count
     user = User.new(name: 'foo', email: 'foobar@bar.com')
     user.generate_password('nice_password')
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/chevrolet.jpg") do |f|
+      user.avatar = f
+    end
+
     user.save
     expect(User.count).to eql(before + 1)
 
@@ -53,8 +57,22 @@ RSpec.describe User, type: :model do
     before = User.count
     user = User.new(name: 'foo', email: 'foobar@foo.bar')
     user.generate_password 'nice_password'
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/chevrolet.jpg") do |f|
+      user.avatar = f
+    end
+
     user.save
     expect(User.count).to eql(before + 1)
+
+  end
+
+  it "should not create user without avatar" do
+    before = User.count
+    user = User.new(name: 'foo', email: 'foobar@foo.bar')
+    user.generate_password 'nice_password'
+
+    user.save
+    expect(User.count).to eql(before)
 
   end
 

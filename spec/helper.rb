@@ -2,15 +2,24 @@ module TestHelper
   def create_users
     @first = User.new(name: 'Sanya Bogomolov', email: 'a.starwars.d@gmail.com')
     @first.generate_password 'nice_password'
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/chevrolet.jpg") do |f|
+      @first.avatar = f
+    end
     @first.save
 
     @second = User.new(name: 'Fedor Tsarenko', email: 'pidor@gmail.com')
     @second.generate_password 'nice_password'
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/chevrolet.jpg") do |f|
+      @second.avatar = f
+    end
     @second.save
 
 
     @third = User.new(name: 'Den Yarinskih', email: 'den@gmail.com')
     @third.generate_password 'nice_password'
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/chevrolet.jpg") do |f|
+      @third.avatar = f
+    end
     @third.save
   end
 

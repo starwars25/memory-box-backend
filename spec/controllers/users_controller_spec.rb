@@ -109,12 +109,25 @@ RSpec.describe UsersController, type: :controller do
 
   it "should create user" do
     before = User.count
-    post :create, {user: {name: 'Den Krasava', email: 'notpidor@gmai.com', password: 'great_password', password_confirmation: 'great_password'}}
+    photo = File.read(File.expand_path("spec/controllers/chevrolet.jpg"))
+    string = Base64.encode64 photo
+    post :create, {user: {name: 'Den Krasava', email: 'notpidor@gmai.com', password: 'great_password', password_confirmation: 'great_password', avatar: string}}
+
     json = JSON.parse @response.body
     expect(json['result']).to eql('success')
     expect(User.count).to eql(before + 1)
-
+    expect(User.last.avatar.url).not_to eql nil
   end
+
+  it "should not create user without photo" do
+    before = User.count
+
+    post :create, {user: {name: 'Roma', email: 'notpidor@gmai.com', password: 'great_password', password_confirmation: 'great_password'}}
+    json = JSON.parse @response.body
+    expect(json['error']).to eql('invalid params')
+    expect(User.count).to eql(before)
+  end
+
 
 
 

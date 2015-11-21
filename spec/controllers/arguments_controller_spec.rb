@@ -145,6 +145,56 @@ RSpec.describe ArgumentsController, type: :controller do
     expect(@first_box.arguments.count).to eql(before_first_box - 1)
   end
 
+  it "test finish" do
+
+    # not logged in
+
+    expect(@first_argument.finished).to eql false
+    delete :finish, id: @first_argument.id, format: :json
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'not logged in'
+    @first_argument.reload
+    expect(@first_argument.finished).to eql false
+
+
+    # wrong user
+
+    expect(@first_argument.finished).to eql false
+    @token = log_in @third
+    @request.headers['user-id'] = @third.id
+    @request.headers['token'] = @token
+    post :finish, id: @first_argument.id, format: :json
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'wrong user'
+    @first_argument.reload
+    expect(@first_argument.finished).to eql false
+
+    # no such argument
+
+    expect(@first_argument.finished).to eql false
+    @token = log_in @first
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    post :finish, id: 100, format: :json
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'no such argument'
+    @first_argument.reload
+    expect(@first_argument.finished).to eql false
+
+    # success
+
+    expect(@first_argument.finished).to eql false
+    @token = log_in @first
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    post :finish, id: @first_argument.id, format: :json
+    json = JSON.parse @response.body
+    expect(json['result']).to eql 'success'
+    @first_argument.reload
+    expect(@first_argument.finished).to eql true
+
+  end
+
 
 
 end

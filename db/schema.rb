@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118173512) do
+ActiveRecord::Schema.define(version: 20151121085834) do
 
   create_table "arguments", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.date     "expires"
     t.integer  "box_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.date     "established"
+    t.boolean  "finished",    default: false
   end
 
   create_table "box_relations", force: :cascade do |t|

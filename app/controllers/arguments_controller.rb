@@ -58,6 +58,22 @@ class ArgumentsController < ApplicationController
     end
   end
 
+  def finish
+    argument = Argument.find_by(id: params[:id])
+    if argument
+      if argument.users.include? current_user
+
+        argument.update_attribute(:finished, true)
+        render json: {result: 'success'}
+
+      else
+        render json: {error: 'wrong user'}
+      end
+    else
+      render json: {error: 'no such argument'}
+    end
+  end
+
   private
 
   def logged_in

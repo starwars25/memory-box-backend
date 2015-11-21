@@ -16,7 +16,7 @@
         <p>Возвращает JSON, содержащий информацию о конкретном пользователе.</p>
 
         <p>Список параметров:</p>
-          <span class="outer"> <span class="code">id</span> - ID пользователя.</span>
+        <span class="outer"> <span class="code">id</span> - ID пользователя.</span>
       </div>
       <div class="http-method">
         <h4>POST <span class="code">/users</span></h4>
@@ -47,7 +47,162 @@
           }
         </div>
       </div>
+      <div class="http-method">
+        <h4>PUT/PATCH <span class="code">/users/:id</span></h4>
+
+        <p>Обновляет информацию о пользователе с <span class="code">id</span>. </p>
+
+        <p>JSON аналогичен с POST, кроме <span class="code">password</span>,
+          <span class="code">password_confirmation</span>, <span class="code">avatar</span>. Методы для работы с этими
+          полями будут доступны позже. </p>
+        <span class="attention">Требует авторизации.</span>
+      </div>
+      <div class="http-method">
+        <h4>DELETE <span class="code">/users/:id</span></h4>
+
+        <p>Удаляет пользователя с <span class="code">id</span>. </p>
+        <span class="attention">Требует авторизации.</span>
+
+      </div>
+      <h2>Authentication</h2>
+
+      <div class="http-method">
+        <h4>POST <span class="code">/authentication</span></h4>
+
+        <p>Авторизирует пользователя. Параметры запроса:</p>
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"user"</span>: { </span>
+          <br>
+          <span class="inner"><span class="key">"email"</span>: "a.starwars.d@gmail.com", </span>
+          <br>
+          <span class="inner"><span class="key">"password"</span>: "foobar" </span>
+          <br>
+          <span class="outer">}</span>
+          <br>
+          }
+        </div>
+        <p>Пример ответа:</p>
+
+        <div class="json">
+          {<span class="key">"token"</span>:"some_token",<span class="key">"user_id"</span>:1}
+        </div>
+      </div>
+      <h2>Boxes</h2>
+
+      <div class="http-method">
+        <h4>GET <span class="code">/boxes/:id</span></h4>
+
+        <p>Возвращает коробку с указанным <span class="code">id</span>. </p>
+        <span class="attention">Требуется авторизация.</span>
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/boxes</span></h4>
+
+        <p>Создает новую коробку. Список параметров:</p>
+
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"box"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"title"</span>: "Some Title",</span>
+          <br>
+          <span class="inner"><span class="key">"users"</span>: [1, 2, 3] <span class="commentary">// Здесь не стоит указывать id пользователя, создающего коробку. Он будет добавлен в нее автоматически.</span> </span>
+
+          <br>
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>PUT/PATCH <span class="code">/boxes/:id</span></h4>
+
+        <p>Обновляет коробку с <span class="code">id</span>. Список параметров:</p>
+
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"box"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"title"</span>: "Some Title"</span>
+          <br>
+
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>DELETE <span class="code">/boxes/:id</span></h4>
+
+        <p>Удаляет коробку с <span class="code">id</span>. </p>
+        <span class="attention">Требует авторизации.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/boxes/add/:id</span></h4>
+
+        <p>Добавляет в коробку с <span class="code">id</span> пользователей. Список параметров:</p>
+
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"box"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"users"</span>: [1, 2, 3] <span class="commentary">// ID пользователей, которых требуется добавить.</span> </span>
+
+          <br>
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/boxes/remove/:id</span></h4>
+
+        <p>Удаляет из коробки с <span class="code">id</span> пользователя. Список параметров:</p>
+
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"box"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"user_id"</span>: 1 <span class="commentary">// ID пользователя, которого требуется удалить из коробки.</span> </span>
+
+          <br>
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+
     </div>
+
   </div>
+</div>
 
 </div>

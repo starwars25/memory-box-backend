@@ -36,3 +36,11 @@ li {
 .commentary {
     color: #a6a6a6;
 }
+
+.attention {
+    font-weight: bold;
+}
+
+body {
+    background-color: #fafafa;
+}

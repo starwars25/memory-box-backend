@@ -4,8 +4,8 @@ class ArgumentsController < ApplicationController
   # TO-DO methods:
   #
   # - show - IMPLEMENTED
-  # - create
-  # - destroy
+  # - create - IMPLEMENTED
+  # - destroy - IMPLEMENTED
   # - finish
 
 
@@ -38,6 +38,23 @@ class ArgumentsController < ApplicationController
       end
     else
       render json: {error: 'no such box'}
+    end
+  end
+
+  def destroy
+    argument = Argument.find_by(id: params[:id])
+    if argument
+      if argument.users.include? current_user
+        if argument.destroy
+          render json: {result: 'success'}
+        else
+          render json: {error: 'some error happened'}
+        end
+      else
+        render json: {error: 'wrong user'}
+      end
+    else
+      render json: {error: 'no such argument'}
     end
   end
 

@@ -35,9 +35,20 @@ RSpec.describe Argument, type: :model do
 
   it 'should create argument' do
     before = Argument.count
-    argument = Argument.create(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
+    argument = Argument.new(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov") do |f|
+      argument.video = f
+    end
+    argument.save
     expect(Argument.count).to eql (before + 1)
     expect(argument.established).not_to eql nil
+
+  end
+
+  it 'should not create argument without photo' do
+    before = Argument.count
+    Argument.create(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
+    expect(Argument.count).to eql (before)
 
   end
 
@@ -46,14 +57,20 @@ RSpec.describe Argument, type: :model do
     expect(@box.arguments.count).to eql 0
     expect(@first.arguments.count).to eql 0
     expect(@second.arguments.count).to eql 0
-    @box.add_argument('Foobar', 'Foobar Content', 1.year.from_now)
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov") do |f|
+
+      @box.add_argument('Foobar', 'Foobar Content', 1.year.from_now, f)
+
+    end
     expect(@box.arguments.count).to eql 1
     expect(@first.arguments.count).to eql 1
     expect(@second.arguments.count).to eql 1
     expect(Argument.first.users.count).to eql 2
 
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov") do |f|
+      @box.add_argument('', 'Foobar Content', 1.year.from_now, f)
+    end
 
-    @box.add_argument('', 'Foobar Content', 1.year.from_now)
     expect(@box.arguments.count).to eql 1
     expect(@first.arguments.count).to eql 1
     expect(@second.arguments.count).to eql 1

@@ -28,6 +28,8 @@ class ArgumentsController < ApplicationController
     if box
       if box.users.include?(current_user)
         argument = Argument.new(argument_params)
+        file = file_decode(params[:argument][:video], 'mov', 'video')
+        argument.video = file if file
         if argument.save
           render json: {result: 'success'}
         else

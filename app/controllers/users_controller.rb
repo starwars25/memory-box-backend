@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       return
     end
     user = User.new(user_params)
-    file = file_decode(params[:user][:avatar])
+    file = file_decode(params[:user][:avatar], 'png', 'image/png')
     user.avatar = file if file
     begin
       user.generate_password(params[:user][:password])
@@ -67,21 +67,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :last_name, :email)
   end
 
-  def file_decode(string)
-    return nil unless string
 
-    data = StringIO.new(Base64.decode64(string))
-
-    # assign some attributes for carrierwave processing
-    data.class.class_eval { attr_accessor :original_filename, :content_type }
-    data.original_filename = "#{SecureRandom.urlsafe_base64}.png"
-    data.content_type = "image/png"
-
-    # return decoded data
-    data
-
-
-  end
 
   def logged_in
     render json: {result: 'failure', description: 'not logged in'} unless current_user

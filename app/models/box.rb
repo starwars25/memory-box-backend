@@ -47,8 +47,10 @@ class Box < ActiveRecord::Base
 
   end
 
-  def add_argument(title, content, expires)
-    Argument.create(title: title, description: content, expires: expires, box_id: self.id)
+  def add_argument(title, content, expires, video)
+    argument = Argument.new(title: title, description: content, expires: expires, box_id: self.id)
+    argument.video = video
+    argument.save
   end
 
   def remove_argument(id)

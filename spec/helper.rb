@@ -32,7 +32,11 @@ module TestHelper
   end
 
   def create_arguments
-    @first_argument = Argument.create(title: 'TestArgument', description: 'Description', box_id: @first_box.id, expires: 1.year.from_now)
+    @first_argument = Argument.new(title: 'TestArgument', description: 'Description', box_id: @first_box.id, expires: 1.year.from_now)
+    File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov") do |f|
+      @first_argument.video = f
+    end
+    @first_argument.save
   end
 
   def clean

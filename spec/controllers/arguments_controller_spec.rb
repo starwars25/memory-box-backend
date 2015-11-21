@@ -80,15 +80,30 @@ RSpec.describe ArgumentsController, type: :controller do
     json = JSON.parse @response.body
     expect(json['error']).to eql 'no such box'
 
-    # successful
+
+    # no video
 
     @token = log_in @first
     @request.headers['user-id'] = @first.id
     @request.headers['token'] = @token
+    post :create, argument: {title: 'Title', description: 'Description', expires: 14.days.from_now, box_id: @first_box.id}, format: :json
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'invalid params'
+
+    # successful
+
+
+
+    @token = log_in @first
+    @request.headers['user-id'] = @first.id
+    @request.headers['token'] = @token
+    photo = File.read(File.expand_path("spec/controllers/Video.mov"))
+    string = Base64.encode64 photo
+
     before_first_user = @first.arguments.count
     before_second_user = @second.arguments.count
     before_first_box = @first_box.arguments.count
-    post :create, argument: {title: 'Title', description: 'Description', expires: 14.days.from_now, box_id: @first_box.id}, format: :json
+    post :create, argument: {title: 'Title', description: 'Description', expires: 14.days.from_now, box_id: @first_box.id, video: string}, format: :json
     json = JSON.parse @response.body
     expect(json['result']).to eql 'success'
     @first.reload

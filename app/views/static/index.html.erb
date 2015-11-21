@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h1>Документация</h1>
+
+      <h3>User</h3>
+
+      <div class="http-method">
+        <h4>GET <span class="code">/users</span></h4>
+
+        <p>Возвращает JSON, содержащий информацию о всех пользователях.</p>
+      </div>
+      <div class="http-method">
+        <h4>GET <span class="code">/users/:id</span></h4>
+
+        <p>Возвращает JSON, содержащий информацию о конкретном пользователе.</p>
+
+        <p>Список параметров:</p>
+          <span class="outer"> <span class="code">id</span> - ID пользователя.</span>
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/users</span></h4>
+
+        <p>Создает нового пользователя. Список параметров:</p>
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"user"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"email"</span>: "a.starwars.d@gmail.com",</span>
+          <br>
+          <span class="inner"><span class="key">"name"</span>: "Alex Bogomolov",</span>
+          <br>
+          <span class="inner"><span class="key">"password"</span>: "foobar",</span>
+          <br>
+          <span class="inner"><span class="key">"password_confirmation"</span>: "foobar",</span>
+          <br>
+          <span class="inner"><span class="key">"date_of_birth"</span>: "some_date", <span class="commentary">// Необязателен</span> </span>
+          <br>
+          <span class="inner"><span class="key">"avatar"</span>: "Аватар в формате Base64"</span>
+          <br>
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+.http-method {
+    background-color: #f2f2f2;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.code {
+    background-color: #e0e0e0;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    font-size: 100%;
+    padding: 2px;
+}
+
+li {
+    list-style: none;
+}
+
+.json {
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    font-size: 110%;
+}
+
+.outer {
+    padding-left: 20px;
+}
+
+.inner {
+    padding-left: 40px;
+}
+
+.key {
+    color: #990f0f;
+}
+
+.commentary {
+    color: #a6a6a6;
+}

@@ -5,8 +5,8 @@ class BoxesController < ApplicationController
   def create
     box = Box.create(title: params[:box][:title])
     if box
-      box.add_users [current_user.id]
-      box.add_users params[:box][:users]
+      box.add_user current_user.id
+      params[:box][:users].each {|u| box.add_user u}
       # byebug
       ids = box.users_ids
       render json: {result: 'success', title: box.title, members: ids}

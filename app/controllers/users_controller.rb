@@ -1,14 +1,21 @@
 class UsersController < ApplicationController
-  before_action :logged_in, only: [:update, :destroy, :show]
+  before_action :logged_in, only: [:update, :destroy]
   before_action :correct_user, only: [:update, :destroy]
   def index
-    render json: User.all
+    @users = User.all
+    render json: @users, :each_serializer => UserNotLoggedInSerializer, :root => false
   end
 
   def show
     user = User.find_by(id: params[:id])
+    # byebug
     if user
-      render json: user, :root => false
+      if current_user && current_user.id == params[:id].to_i
+        render json: user, :serializer => UserSerializer, :root => false
+      else
+        render json: user, :serializer => UserNotLoggedInSerializer, :root => false
+
+      end
     else
       render json: {error: 'no such user'}
     end

@@ -61,7 +61,7 @@
         <h4>DELETE <span class="code">/users/:id</span></h4>
 
         <p>Удаляет пользователя с <span class="code">id</span>. </p>
-        <span class="attention">Требует авторизации.</span>
+        <span class="attention">Требуется авторизация.</span>
 
       </div>
       <h2>Authentication</h2>
@@ -156,7 +156,7 @@
         <h4>DELETE <span class="code">/boxes/:id</span></h4>
 
         <p>Удаляет коробку с <span class="code">id</span>. </p>
-        <span class="attention">Требует авторизации.</span>
+        <span class="attention">Требуется авторизация.</span>
 
       </div>
       <div class="http-method">
@@ -205,6 +205,58 @@
         <span class="attention">Требуется авторизация.</span>
 
       </div>
+      <h1>Arguments</h1>
+      <div class="http-method">
+        <h4>GET <span class="code">/arguments/:id</span></h4>
+
+        <p>Возвращает спор с указанным <span class="code">id</span>. </p>
+        <span class="attention">Требуется авторизация.</span>
+      </div>
+      <div class="http-method">
+        <h4>DELETE <span class="code">/argumens/:id</span></h4>
+
+        <p>Удаляет спор с <span class="code">id</span>. </p>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/boxes</span></h4>
+
+        <p>Создает новый спор. Список параметров:</p>
+
+
+        <div class="json">
+          {
+          <br>
+          <span class="outer"><span class="key">"box"</span>: {</span>
+          <br>
+          <span class="inner"><span class="key">"title"</span>: "Some Title",</span>
+          <br>
+          <span class="inner"><span class="key">"description"</span>: "Some Description",</span>
+          <br>
+          <span class="inner"><span class="key">"box_id"</span>: 1,</span>
+          <br>
+          <span class="inner"><span class="key">"expires"</span>: "some_date",</span>
+          <br>
+          <span class="inner"><span class="key">"video"</span>: "some_data" <span class="commentary">// Файл видеозаписи, закодированный в Base64.</span> </span>
+
+          <br>
+          <span class="outer">}</span>
+
+          <br>
+
+          }
+        </div>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+      <div class="http-method">
+        <h4>POST <span class="code">/arguments/:id/finish</span> </h4>
+        <p>Завершает спор с указанным <span class="code">id</span>. </p>
+        <span class="attention">Требуется авторизация.</span>
+
+      </div>
+
 
     </div>
 

@@ -19,6 +19,10 @@ class Box < ActiveRecord::Base
     end
   end
 
+  def contains_user?(user)
+    false
+  end
+
   def add_user(user_id)
     user = User.find_by(id: user_id)
     BoxRelation.create(user_id: user.id, box_id: self.id) if user && !is_member(user.id)

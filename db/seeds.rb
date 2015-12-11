@@ -67,7 +67,7 @@ path = File.join(path, '/public/Video.mov')
 @video = nil
 File.open(path, 'r') do |f|
   @video = f
-  200.times do
+  50.times do
     create_arguments
   end
 end

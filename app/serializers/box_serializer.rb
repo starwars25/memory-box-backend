@@ -1,5 +1,5 @@
 class BoxSerializer < ActiveModel::Serializer
-  attributes :id, :title, :date_of_establishment
+  attributes :id, :title, :date_of_establishment, :updated_at
   has_many :arguments
 
   ActiveSupport.on_load(:active_model_serializers) do

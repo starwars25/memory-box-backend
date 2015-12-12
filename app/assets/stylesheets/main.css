@@ -44,10 +44,16 @@ li {
 body {
     background-color: #fafafa;
     font-family: "Helvetica Neue", sans-serif;
+    min-width: 500px;
+    margin: 0;
 }
 
 .main {
-
+    overflow: hidden;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    float: left;
 }
 
 @media all and (max-width: 700px) {

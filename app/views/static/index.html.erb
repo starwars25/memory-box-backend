@@ -6,7 +6,28 @@
   <div class="http-method">
     <h4>GET <span class="code">/users</span></h4>
 
-    <p>Возвращает JSON, содержащий информацию о всех пользователях.</p>
+    <p>Возвращает JSON, содержащий информацию о всех пользователях.</p>    <h5>Пример ответа:</h5>
+
+    <div class="json">
+      [
+      <div class="outer">{
+      <div class="outer">
+        <span class="key">"id"</span>: 1,<br>
+        <span class="key">"name"</span>: "rosina",<br>
+        <span class="key">"email"</span>: "brannon_brown@hudson.io",<br>
+        <span class="key">"avatar"</span>: {
+        <div class="outer">
+          <span class="key">"avatar"</span>: {
+          <div class="outer">
+            <span class="key">"url"</span>: "/uploads/user/avatar/1/chevrolet.jpg"
+          </div>
+          }
+        </div>
+        }
+      </div>
+      }</div>
+      ]
+    </div>
   </div>
   <div class="http-method">
     <h4>GET <span class="code">/users/:id</span></h4>
@@ -15,6 +36,115 @@
 
     <p>Список параметров:</p>
     <span class="outer"> <span class="code">id</span> - ID пользователя.</span>
+
+    <h5>Пример ответа без авторизации</h5>
+
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"id"</span>: 2,
+        <br>
+        <span class="key">"name"</span>: "travis",
+        <br>
+        <span class="key">"email"</span>: "joaquin.batz@brekkewalter.biz",
+        <br>
+        <span class="key">"avatar"</span>: {
+        <div class="outer">
+          <span class="key">"avatar"</span>: {
+          <div class="outer">
+            <span class="key">"url"</span>: "/uploads/user/avatar/2/chevrolet.jpg"
+          </div>
+          }
+        </div>
+        }
+
+
+      </div>
+      }
+
+
+    </div>
+
+
+
+
+
+
+
+    <h5>Пример ответа с авторизацией</h5>
+
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"id"</span>: 46,
+        <br>
+        <span class="key">"name"</span>: "laura.ward",
+        <br>
+        <span class="key">"email"</span>: "dandre@mohrbraun.name",
+        <br>
+        <span class="key">"avatar"</span>: {
+        <div class="outer">
+          <span class="key">"avatar"</span>: {
+          <div class="outer">
+            <span class="key">"url"</span>: "/uploads/user/avatar/46/chevrolet.jpg"
+          </div>
+          }
+        </div>
+        },
+        <br>
+        <span class="key">"date_of_birth"</span>: "1985-12-11",
+        <br>
+        <span class="key">"updated_at"</span>: "2015-12-12T17:38:13.354Z",
+        <br>
+        <span class="key">"boxes"</span>: [
+        <div class="outer">
+          {
+          <div class="outer">
+            <span class="key">"id"</span>: 34,
+            <br>
+            <span class="key">"title"</span>: "Saepe et non",
+            <br>
+            <span class="key">"date_of_establishment"</span>: "2015-12-11",
+            <br>
+            <span class="key">"arguments"</span>: [
+            <div class="outer">
+              {
+              <div class="outer">
+                <span class="key">"id"</span>: 1,<br>
+                <span class="key">"title"</span>: "Suscipit in itaque mollitia minus enim inventore praesentium
+                accusantium.",<br>
+                <span class="key">"description"</span>: "Et quasi fugiat qui ut. Natus qui optio architecto possimus
+                quam dicta id. Doloremque eos ullam officiis distinctio velit et. Voluptatibus neque consequatur
+                eveniet.",<br>
+                <span class="key">"expires"</span>: "2020-04-04",<br>
+                <span class="key">"established"</span>: "2015-12-11",<br>
+                <span class="key">"finished"</span>: false,<br>
+                <span class="key">"video"</span>: {
+                <div class="outer">
+                  <span class="key">"video"</span>: {
+                  <div class="outer">
+                    <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
+
+                  </div>
+                  }
+                </div>
+                }
+
+
+              </div>
+              }
+            </div>
+          ]</div> }
+
+
+
+        </div>]
+
+      </div>
+      }
+
+
+    </div>
   </div>
   <div class="http-method">
     <h4>POST <span class="code">/users</span></h4>
@@ -38,11 +168,7 @@
       <br>
       <span class="inner"><span class="key">"avatar"</span>: "Аватар в формате Base64"</span>
       <br>
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <span class="outer">}</span> <br> }
     </div>
   </div>
   <div class="http-method">
@@ -59,9 +185,7 @@
     <h4>DELETE <span class="code">/users/:id</span></h4>
 
     <p>Удаляет пользователя с <span class="code">id</span>. </p>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <h2>Authentication</h2>
 
   <div class="http-method">
@@ -101,12 +225,51 @@
 
     <p>Возвращает коробку с указанным <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span>
+    <h4>Пример ответа:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"id"</span>: 34,
+        <br>
+        <span class="key">"title"</span>: "Saepe et non",
+        <br>
+        <span class="key">"date_of_establishment"</span>: "2015-12-11",
+        <br>
+        <span class="key">"arguments"</span>: [
+        <div class="outer">
+          {
+          <div class="outer">
+            <span class="key">"id"</span>: 1,<br>
+            <span class="key">"title"</span>: "Suscipit in itaque mollitia minus enim inventore praesentium
+            accusantium.",<br>
+            <span class="key">"description"</span>: "Et quasi fugiat qui ut. Natus qui optio architecto possimus
+            quam dicta id. Doloremque eos ullam officiis distinctio velit et. Voluptatibus neque consequatur
+            eveniet.",<br>
+            <span class="key">"expires"</span>: "2020-04-04",<br>
+            <span class="key">"established"</span>: "2015-12-11",<br>
+            <span class="key">"finished"</span>: false,<br>
+            <span class="key">"video"</span>: {
+            <div class="outer">
+              <span class="key">"video"</span>: {
+              <div class="outer">
+                <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
+
+              </div>
+              }
+            </div>
+            }
+
+
+          </div>
+          }
+        </div>
+        ]</div> }
+    </div>
   </div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes</span></h4>
 
     <p>Создает новую коробку. Список параметров:</p>
-
 
     <div class="json">
       {
@@ -116,22 +279,14 @@
       <span class="inner"><span class="key">"title"</span>: "Some Title",</span>
       <br>
       <span class="inner"><span class="key">"users"</span>: [1, 2, 3] <span class="commentary">// Здесь не стоит указывать id пользователя, создающего коробку. Он будет добавлен в нее автоматически.</span> </span>
-
       <br>
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <span class="outer">}</span> <br> }
     </div>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>PUT/PATCH <span class="code">/boxes/:id</span></h4>
 
     <p>Обновляет коробку с <span class="code">id</span>. Список параметров:</p>
-
 
     <div class="json">
       {
@@ -139,29 +294,18 @@
       <span class="outer"><span class="key">"box"</span>: {</span>
       <br>
       <span class="inner"><span class="key">"title"</span>: "Some Title"</span>
-      <br>
-
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <br> <span class="outer">}</span> <br> }
     </div>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>DELETE <span class="code">/boxes/:id</span></h4>
 
     <p>Удаляет коробку с <span class="code">id</span>. </p>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes/add/:id</span></h4>
 
     <p>Добавляет в коробку с <span class="code">id</span> пользователей. Список параметров:</p>
-
 
     <div class="json">
       {
@@ -169,22 +313,14 @@
       <span class="outer"><span class="key">"box"</span>: {</span>
       <br>
       <span class="inner"><span class="key">"users"</span>: [1, 2, 3] <span class="commentary">// ID пользователей, которых требуется добавить.</span> </span>
-
       <br>
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <span class="outer">}</span> <br> }
     </div>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes/remove/:id</span></h4>
 
     <p>Удаляет из коробки с <span class="code">id</span> пользователя. Список параметров:</p>
-
 
     <div class="json">
       {
@@ -192,37 +328,55 @@
       <span class="outer"><span class="key">"box"</span>: {</span>
       <br>
       <span class="inner"><span class="key">"user_id"</span>: 1 <span class="commentary">// ID пользователя, которого требуется удалить из коробки.</span> </span>
-
       <br>
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <span class="outer">}</span> <br> }
     </div>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <h1>Arguments</h1>
 
   <div class="http-method">
     <h4>GET <span class="code">/arguments/:id</span></h4>
 
     <p>Возвращает спор с указанным <span class="code">id</span>. </p>
+    <h4>Пример ответа:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"id"</span>: 1,<br>
+        <span class="key">"title"</span>: "Suscipit in itaque mollitia minus enim inventore praesentium
+        accusantium.",<br>
+        <span class="key">"description"</span>: "Et quasi fugiat qui ut. Natus qui optio architecto possimus
+        quam dicta id. Doloremque eos ullam officiis distinctio velit et. Voluptatibus neque consequatur
+        eveniet.",<br>
+        <span class="key">"expires"</span>: "2020-04-04",<br>
+        <span class="key">"established"</span>: "2015-12-11",<br>
+        <span class="key">"finished"</span>: false,<br>
+        <span class="key">"video"</span>: {
+        <div class="outer">
+          <span class="key">"video"</span>: {
+          <div class="outer">
+            <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
+
+          </div>
+          }
+        </div>
+        }
+
+
+      </div>
+      }
+    </div>
     <span class="attention">Требуется авторизация.</span>
   </div>
   <div class="http-method">
     <h4>DELETE <span class="code">/argumens/:id</span></h4>
 
     <p>Удаляет спор с <span class="code">id</span>. </p>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/arguments</span></h4>
 
     <p>Создает новый спор. Список параметров:</p>
-
 
     <div class="json">
       {
@@ -238,24 +392,13 @@
       <span class="inner"><span class="key">"expires"</span>: "some_date",</span>
       <br>
       <span class="inner"><span class="key">"video"</span>: "some_data" <span class="commentary">// Файл видеозаписи, закодированный в Base64.</span> </span>
-
       <br>
-      <span class="outer">}</span>
-
-      <br>
-
-      }
+      <span class="outer">}</span> <br> }
     </div>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
+    <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/arguments/:id/finish</span></h4>
 
     <p>Завершает спор с указанным <span class="code">id</span>. </p>
-    <span class="attention">Требуется авторизация.</span>
-
-  </div>
-
-
+    <span class="attention">Требуется авторизация.</span></div>
 </div>

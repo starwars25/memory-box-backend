@@ -23,4 +23,19 @@ class User < ActiveRecord::Base
     self.auth_token = SecureRandom.uuid
     update_attribute(:authentication_digest, BCrypt::Password.create(self.auth_token))
   end
+
+  def token_valid?(token)
+    BCrypt::Password.new(self.authentication_digest) == token
+  end
+
+  def changes_after?(date)
+    return true if self.updated_at > date
+    self.boxes.each do |box|
+      return true if box.updated_at > date
+      box.arguments.each do |argument|
+        return true if argument.updated_at > date
+      end
+    end
+    false
+  end
 end

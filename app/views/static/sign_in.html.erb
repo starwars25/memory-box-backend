@@ -1,10 +1,16 @@
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="main-login">
     <h1>Log in</h1>
     <%= form_for :session, url: login_path do |f| %>
-        <%= f.label(:password, 'Password') %>
-        <%= f.password_field(:password) %>
+        <div class="form-container">
+          <div class="form-fixed">
+            <%= f.label(:password, 'Password') %>
+
+          </div>
+          <div class="form-dynamic">
+            <%= f.password_field(:password) %>
+
+          </div>
+        </div>
         <%= f.submit %>
     <% end %>
   </div>
-</div>

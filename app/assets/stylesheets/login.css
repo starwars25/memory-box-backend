@@ -1,0 +1,39 @@
+.form-container {
+    height: auto;
+    overflow: hidden;
+
+}
+
+.form-fixed {
+    width: auto;
+    display: block;
+    float: left;
+    margin-right: 5%;
+}
+
+.form-dynamic {
+    float: none;
+    width: auto;
+    overflow: hidden;
+}
+
+.form-dynamic input {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+@media all and (max-width: 700px) {
+    .main-login {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+@media all and (min-width: 701px) {
+    .main-login {
+        width: 33.333%;
+        margin-left: 33.333%;
+    }
+}

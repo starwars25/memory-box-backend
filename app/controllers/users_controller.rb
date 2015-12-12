@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in, only: [:update, :destroy]
+  before_action :logged_in, only: [:update, :destroy, :changes]
   before_action :correct_user, only: [:update, :destroy]
   def index
     @users = User.all
@@ -69,6 +69,20 @@ class UsersController < ApplicationController
 
   end
 
+  def changes
+
+  end
+
+  def token
+    user = User.find_by(id: params[:id])
+    if user
+      render json: {result: user.token_valid?(params[:token])}
+
+    else
+      render json: {result: 'failure', description: 'no such user'}
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :date_of_birth)
@@ -83,6 +97,8 @@ class UsersController < ApplicationController
   def correct_user
     render json: {result: 'failure', description: 'wrong user'} unless current_user.id == params[:id].to_i
   end
+
+
 
 
 

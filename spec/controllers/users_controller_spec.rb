@@ -157,6 +157,24 @@ RSpec.describe UsersController, type: :controller do
 
   it "should post valid token" do
 
+
+
+    token = log_in @first
+
+    post :token, id: 100, token: token
+    json = JSON.parse @response.body
+    expect(json['description']).to eql 'no such user'
+
+
+    post :token, id: @first.id, token: token
+    json = JSON.parse @response.body
+    expect(json['result']).to eql true
+
+
+    post :token, id: @first.id, token: 'invalid'
+    json = JSON.parse @response.body
+    expect(json['result']).to eql false
+
   end
 
 

@@ -1,13 +1,9 @@
 <div class="main">
   <h1>Документация</h1>
-
   <h3>User</h3>
-
   <div class="http-method">
     <h4>GET <span class="code">/users</span></h4>
-
     <p>Возвращает JSON, содержащий информацию о всех пользователях.</p>    <h5>Пример ответа:</h5>
-
     <div class="json">
       [
       <div class="outer">{
@@ -31,14 +27,10 @@
   </div>
   <div class="http-method">
     <h4>GET <span class="code">/users/:id</span></h4>
-
     <p>Возвращает JSON, содержащий информацию о конкретном пользователе.</p>
-
     <p>Список параметров:</p>
     <span class="outer"> <span class="code">id</span> - ID пользователя.</span>
-
     <h5>Пример ответа без авторизации</h5>
-
     <div class="json">
       {
       <div class="outer">
@@ -57,22 +49,10 @@
           }
         </div>
         }
-
-
       </div>
       }
-
-
     </div>
-
-
-
-
-
-
-
     <h5>Пример ответа с авторизацией</h5>
-
     <div class="json">
       {
       <div class="outer">
@@ -127,33 +107,22 @@
                   <span class="key">"video"</span>: {
                   <div class="outer">
                     <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
-
                   </div>
                   }
                 </div>
                 }
-
-
               </div>
               }
             </div>
           ]</div> }
-
-
-
         </div>]
-
       </div>
       }
-
-
     </div>
   </div>
   <div class="http-method">
     <h4>POST <span class="code">/users</span></h4>
-
     <p>Создает нового пользователя. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -176,9 +145,7 @@
   </div>
   <div class="http-method">
     <h4>PUT/PATCH <span class="code">/users/:id</span></h4>
-
     <p>Обновляет информацию о пользователе с <span class="code">id</span>. </p>
-
     <p>JSON аналогичен с POST, кроме <span class="code">password</span>,
       <span class="code">password_confirmation</span>, <span class="code">avatar</span>. Методы для работы с этими
       полями будут доступны позже. </p>
@@ -186,16 +153,53 @@
   </div>
   <div class="http-method">
     <h4>DELETE <span class="code">/users/:id</span></h4>
-
     <p>Удаляет пользователя с <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span></div>
+  <div class="http-method">
+    <h4>POST <span class="code">/users/:id/token</span> </h4>
+    <p>Проверяет, подходит ли <span class="code">token</span>. </p>
+    <h4>Пример запроса:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"token"</span>: "some_token"
+      </div>
+      }
+    </div>
+    <h4>Пример овета:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"result"</span>: true
+      </div>
+      }
+    </div>
+  </div>
+  <div class="http-method">
+    <h4>POST <span class="code">/users/:id/changes</span> </h4>
+    <p>Проверяет, произошли ли изменения у данного пользователя с указанного времени. </p>
+    <span class="attention">Требуется авторизация.</span>
+    <h4>Пример запроса:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"time"</span>: "2015-12-13 00:29:22 +0200"
+      </div>
+      }
+    </div>
+    <h4>Пример овета:</h4>
+    <div class="json">
+      {
+      <div class="outer">
+        <span class="key">"changes"</span>: true
+      </div>
+      }
+    </div>
+  </div>
   <h2>Authentication</h2>
-
   <div class="http-method">
     <h4>POST <span class="code">/authentication</span></h4>
-
     <p>Авторизирует пользователя. Параметры запроса:</p>
-
     <div class="json">
       {
       <br>
@@ -210,7 +214,6 @@
       }
     </div>
     <p>Пример ответа:</p>
-
     <div class="json">
       {
       <br>
@@ -220,12 +223,11 @@
       <br>
       }
     </div>
+    <p>Для авторизации необходимо в заголовки запроса поместить <span class="code">token</span> и <span class="code">user-id</span>. </p>
   </div>
   <h2>Boxes</h2>
-
   <div class="http-method">
     <h4>GET <span class="code">/boxes/:id</span></h4>
-
     <p>Возвращает коробку с указанным <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span>
     <h4>Пример ответа:</h4>
@@ -253,20 +255,16 @@
             <span class="key">"expires"</span>: "2020-04-04",<br>
             <span class="key">"established"</span>: "2015-12-11",<br>
             <span class="key">"updated_at"</span>: "2015-12-11T18:02:46.251Z",<br>
-
             <span class="key">"finished"</span>: false,<br>
             <span class="key">"video"</span>: {
             <div class="outer">
               <span class="key">"video"</span>: {
               <div class="outer">
                 <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
-
               </div>
               }
             </div>
             }
-
-
           </div>
           }
         </div>
@@ -275,9 +273,7 @@
   </div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes</span></h4>
-
     <p>Создает новую коробку. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -292,9 +288,7 @@
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>PUT/PATCH <span class="code">/boxes/:id</span></h4>
-
     <p>Обновляет коробку с <span class="code">id</span>. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -306,14 +300,11 @@
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>DELETE <span class="code">/boxes/:id</span></h4>
-
     <p>Удаляет коробку с <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes/add/:id</span></h4>
-
     <p>Добавляет в коробку с <span class="code">id</span> пользователей. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -326,9 +317,7 @@
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/boxes/remove/:id</span></h4>
-
     <p>Удаляет из коробки с <span class="code">id</span> пользователя. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -340,10 +329,8 @@
     </div>
     <span class="attention">Требуется авторизация.</span></div>
   <h1>Arguments</h1>
-
   <div class="http-method">
     <h4>GET <span class="code">/arguments/:id</span></h4>
-
     <p>Возвращает спор с указанным <span class="code">id</span>. </p>
     <h4>Пример ответа:</h4>
     <div class="json">
@@ -358,20 +345,16 @@
         <span class="key">"expires"</span>: "2020-04-04",<br>
         <span class="key">"established"</span>: "2015-12-11",<br>
         <span class="key">"updated_at"</span>: "2015-12-11T18:02:46.251Z",<br>
-
         <span class="key">"finished"</span>: false,<br>
         <span class="key">"video"</span>: {
         <div class="outer">
           <span class="key">"video"</span>: {
           <div class="outer">
             <span class="key">"url"</span>: "/uploads/argument/video/1/Video.mov"
-
           </div>
           }
         </div>
         }
-
-
       </div>
       }
     </div>
@@ -379,14 +362,11 @@
   </div>
   <div class="http-method">
     <h4>DELETE <span class="code">/argumens/:id</span></h4>
-
     <p>Удаляет спор с <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/arguments</span></h4>
-
     <p>Создает новый спор. Список параметров:</p>
-
     <div class="json">
       {
       <br>
@@ -407,7 +387,6 @@
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
     <h4>POST <span class="code">/arguments/:id/finish</span></h4>
-
     <p>Завершает спор с указанным <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span></div>
 </div>

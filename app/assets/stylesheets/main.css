@@ -5,6 +5,29 @@
     margin-bottom: 15px;
 }
 
+.logo-images {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.logo-image-wrapper {
+    margin-left: 2%;
+    width: 17.6%;
+    float: left;
+}
+
+
+.logo-language {
+    width: 100%;
+}
+
+
+
+
 .code {
     background-color: #e0e0e0;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;

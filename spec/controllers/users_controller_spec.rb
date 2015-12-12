@@ -177,6 +177,48 @@ RSpec.describe UsersController, type: :controller do
 
   end
 
+  it "should check for updates" do
+    # not logged in
+
+    post :changes, id: @first.id, time: Time.now
+    json = JSON.parse @response.body
+    expect(json['description']).to eql 'not logged in'
+
+
+
+
+    # no such user
+
+    token = log_in @first
+    @request.headers['token'] = token
+    @request.headers['user-id'] = @first.id
+    post :changes, id: 100, time: Time.now
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'no such user'
+
+    # wrong user
+
+    post :changes, id: @second.id, time: Time.now
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'wrong user'
+
+
+    # updates
+
+    post :changes, id: @first.id, time: 1.day.from_now
+    json = JSON.parse @response.body
+    expect(json['changes']).to eql false
+
+
+    # no updates
+
+    post :changes, id: @first.id, time: 3.days.ago
+    json = JSON.parse @response.body
+    expect(json['changes']).to eql true
+  end
+
+
+
 
 
 

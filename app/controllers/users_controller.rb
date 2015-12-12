@@ -70,7 +70,16 @@ class UsersController < ApplicationController
   end
 
   def changes
-
+    user = User.find_by(id: params[:id])
+    if user
+      if user.id == current_user.id
+        render json: {changes: user.changes_after?(params[:time])}
+      else
+        render json: {error: 'wrong user'}
+      end
+    else
+      render json: {error: 'no such user'}
+    end
   end
 
   def token

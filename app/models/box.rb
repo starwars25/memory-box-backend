@@ -24,6 +24,7 @@ class Box < ActiveRecord::Base
   end
 
   def add_user(user_id)
+    self.reload
     user = User.find_by(id: user_id)
     BoxRelation.create(user_id: user.id, box_id: self.id) if user && !is_member(user.id)
   end

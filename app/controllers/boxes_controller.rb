@@ -7,7 +7,7 @@ class BoxesController < ApplicationController
     if box
       box.add_user current_user.id
       params[:box][:users].each {|u| box.add_user u}
-      # byebug
+      box.reload
       ids = box.users_ids
       render json: {result: 'success', title: box.title, members: ids}
     else
@@ -29,7 +29,7 @@ class BoxesController < ApplicationController
     box = Box.find_by(id: params[:id])
     if box
       if box.is_member current_user.id
-        render json: box
+        render json: box, root: false
       else
         render json: {result: 'failure', description: 'not a member of the box'}
       end

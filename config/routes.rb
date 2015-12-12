@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post 'boxes/remove/:id', :to => 'boxes#remove'
   post 'boxes/add/:id', :to => 'boxes#add'
   post 'arguments/:id/finish', :to => 'arguments#finish'
+  post 'users/:id/changes', :to => 'users#changes'
+  post 'users/:id/token', :to => 'users#token'
   post 'login', :to => 'static#login'
   get 'login', :to => 'static#sign_in'
     # The priority is based upon order of creation: first created -> highest priority.

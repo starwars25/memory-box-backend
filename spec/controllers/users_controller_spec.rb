@@ -155,6 +155,11 @@ RSpec.describe UsersController, type: :controller do
     expect(User.count).to eql(before)
   end
 
+  it "should post valid token" do
+
+  end
+
+
 
 
 end

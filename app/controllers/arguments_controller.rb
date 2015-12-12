@@ -13,7 +13,7 @@ class ArgumentsController < ApplicationController
     argument = Argument.find_by(id: params[:id])
     if argument
       if argument.users.include?(current_user)
-        render json: argument
+        render json: argument, root: false
       else
         render json: {error: 'wrong user'}
       end

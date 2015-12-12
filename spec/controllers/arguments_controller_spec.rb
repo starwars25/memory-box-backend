@@ -30,6 +30,7 @@ RSpec.describe ArgumentsController, type: :controller do
     @request.headers['token'] = @token
     get :show, id: @first_argument.id, format: :json
     json = JSON.parse @response.body
+
     expect(json['id']).to eql @first_argument.id
     expect(json['title']).to eql @first_argument.title
     expect(json['description']).to eql @first_argument.description

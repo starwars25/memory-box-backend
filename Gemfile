@@ -23,6 +23,7 @@ gem 'bcrypt'
 gem 'faker'
 gem 'database_cleaner'
 gem 'carrierwave'
+gem 'byebug'
 gem 'active_model_serializers'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -40,7 +41,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
 end
 
 group :development do

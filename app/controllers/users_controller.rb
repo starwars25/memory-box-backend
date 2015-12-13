@@ -92,6 +92,12 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def test_upload
+    byebug
+    puts params
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :date_of_birth)

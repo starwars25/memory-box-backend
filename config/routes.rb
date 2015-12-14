@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post 'users/:id/changes', :to => 'users#changes'
   post 'users/:id/token', :to => 'users#token'
   post 'login', :to => 'static#login'
-  post '/users/testupload', :to => 'users#test_upload'
+
   get 'login', :to => 'static#sign_in'
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

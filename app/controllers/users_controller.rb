@@ -93,10 +93,7 @@ class UsersController < ApplicationController
   end
 
 
-  def test_upload
-    byebug
-    puts params
-  end
+  
 
   private
   def user_params

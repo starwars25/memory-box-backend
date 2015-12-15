@@ -83,7 +83,6 @@ class UsersController < ApplicationController
   end
 
   def token
-    byebug
     user = User.find_by(id: params[:id])
     if user
       render json: {result: user.token_valid?(params[:token])}
@@ -104,7 +103,6 @@ class UsersController < ApplicationController
 
 
   def logged_in
-    byebug
     render json: {result: 'failure', description: 'not logged in'} unless current_user
   end
 

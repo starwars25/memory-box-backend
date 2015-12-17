@@ -45,12 +45,6 @@ RSpec.describe Argument, type: :model do
 
   end
 
-  it 'should not create argument without photo' do
-    before = Argument.count
-    Argument.create(description: 'foobar', expires: 1.month.from_now, title: 'foobar', box_id: 1)
-    expect(Argument.count).to eql (before)
-
-  end
 
   it 'should create argument in box' do
     before = Argument.count

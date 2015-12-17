@@ -84,12 +84,6 @@ RSpec.describe ArgumentsController, type: :controller do
 
     # no video
 
-    @token = log_in @first
-    @request.headers['user-id'] = @first.id
-    @request.headers['token'] = @token
-    post :create, argument: {title: 'Title', description: 'Description', expires: 14.days.from_now, box_id: @first_box.id}, format: :json
-    json = JSON.parse @response.body
-    expect(json['error']).to eql 'invalid params'
 
     # successful
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121145320) do
+ActiveRecord::Schema.define(version: 20151217124727) do
 
   create_table "arguments", force: :cascade do |t|
     t.string   "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20151121145320) do
     t.date     "established"
     t.boolean  "finished",    default: false
     t.string   "video"
+    t.boolean  "activated",   default: false
   end
 
   create_table "box_relations", force: :cascade do |t|

@@ -108,6 +108,7 @@ RSpec.describe ArgumentsController, type: :controller do
     expect(@first.arguments.count).to eql(before_first_user + 1)
     expect(@second.arguments.count).to eql(before_second_user + 1)
     expect(@first_box.arguments.count).to eql(before_first_box + 1)
+    expect(Argument.last.activated).to eql false
   end
 
   it "test destroy" do

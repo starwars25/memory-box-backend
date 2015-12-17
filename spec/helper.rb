@@ -36,6 +36,7 @@ module TestHelper
     File.open("/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov") do |f|
       @first_argument.video = f
     end
+    @first_argument.activated = true
     @first_argument.save
   end
 

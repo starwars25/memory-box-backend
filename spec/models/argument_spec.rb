@@ -75,4 +75,12 @@ RSpec.describe Argument, type: :model do
     expect(@second.arguments.count).to eql 0
 
   end
+
+  it 'should test contains' do
+    create_boxes
+    create_arguments
+
+    expect(@first_argument.has_user? @first.id).to eql true
+    expect(@first_argument.has_user? @third.id).to eql false
+  end
 end

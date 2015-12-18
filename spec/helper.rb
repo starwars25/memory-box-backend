@@ -38,6 +38,9 @@ module TestHelper
     end
     @first_argument.activated = true
     @first_argument.save
+
+    @second_argument = Argument.create(title: 'Second Test Argument', description: 'Argument without video', box_id: @first_box.id, expires: 5.year.from_now)
+
   end
 
   def clean

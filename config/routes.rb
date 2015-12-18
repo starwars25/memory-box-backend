@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'boxes/add/:id', :to => 'boxes#add'
   post 'arguments/:id/finish', :to => 'arguments#finish'
   post 'users/:id/changes', :to => 'users#changes'
+  post 'arguments/upload', :to => 'arguments#upload'
   post 'users/:id/token', :to => 'users#token'
   post 'login', :to => 'static#login'
 

@@ -206,6 +206,71 @@ RSpec.describe ArgumentsController, type: :controller do
 
   end
 
+  it "test upload" do
+    open('/Users/admin/Desktop/MemoryBox/spec/controllers/Video.mov', 'rb') {|io| @video = io.read}
+
+    # not logged in
+
+
+    post :upload, @video
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'not logged in'
+
+    # wrong user
+
+    token = log_in @third
+    request.headers['token'] = token
+    request.headers['user-id'] = @third.id
+    request.headers['content-type'] = 'application/octet-stream'
+    request.headers['argument-id'] = @second_argument.id
+    post :upload, @video
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'wrong user'
+
+
+    # no such argument
+
+
+    token = log_in @first
+    request.headers['token'] = token
+    request.headers['user-id'] = @first.id
+    request.headers['content-type'] = 'application/octet-stream'
+    request.headers['argument-id'] = 100
+    post :upload, @video
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'no such argument'
+
+
+    # success
+
+    token = log_in @first
+    request.headers['token'] = token
+    request.headers['user-id'] = @first.id
+    request.headers['content-type'] = 'application/octet-stream'
+    request.headers['argument-id'] = @second_argument.id
+    expect(@second_argument.video_url).to eql nil
+
+    post :upload, @video
+    @second_argument.reload
+    expect(@second_argument.video_url).not_to eql nil
+    json = JSON.parse @response.body
+    expect(json['result']).to eql 'success'
+
+
+    # already updated
+
+    token = log_in @first
+    request.headers['token'] = token
+    request.headers['user-id'] = @first.id
+    request.headers['content-type'] = 'application/octet-stream'
+    request.headers['argument-id'] = @second_argument.id
+
+    post :upload, @video
+    json = JSON.parse @response.body
+    expect(json['error']).to eql 'already has video'
+
+  end
+
 
 
 end

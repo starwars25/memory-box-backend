@@ -398,6 +398,16 @@
     </div>
     <span class="attention">Требуется авторизация.</span></div>
   <div class="http-method">
+    <h4>POST <span class="code">/arguments/upload</span> </h4>
+    <p>Загружает видео на сервер. В теле запроса нужно отправить binary видео. Список заголовков:</p>
+    <ul>
+      <li><span class="code">Content-Type: application/octet-stream</span> - необходим для отправки двоичных данных.</li>
+      <li><span class="code">argument-id</span> - ID спора.</li>
+    </ul>
+    <span class="attention">Требуется авторизация.</span>
+
+  </div>
+  <div class="http-method">
     <h4>POST <span class="code">/arguments/:id/finish</span></h4>
     <p>Завершает спор с указанным <span class="code">id</span>. </p>
     <span class="attention">Требуется авторизация.</span></div>

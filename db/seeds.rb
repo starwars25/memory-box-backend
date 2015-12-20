@@ -12,6 +12,15 @@ end
 
 def create_boxes
   @box = Box.create(title: Faker::Lorem.words(3), date_of_establishment: Time.now)
+  amount = rand(2..6)
+  amount.times do
+    @box.reload
+    user_id = @users.sample.id
+    while @box.is_member user_id 
+      user_id = @users.sample.id
+    end
+    @box.add_user user_id
+  end 
 end
 
 def create_box_relationships
@@ -48,22 +57,19 @@ File.open(path, 'r') do |f|
 
 end
 
-
+@users = User.all
 50.times do
   create_boxes
 end
 
-@users = User.all
+
 @boxes = Box.all
 
-100.times do
-  create_box_relationships
-end
 
 
 path = File.dirname(__FILE__)
 path = File.expand_path('..', path)
-path = File.join(path, '/public/Video.mov')
+path = File.join(path, '/public/test.mp4')
 @video = nil
 File.open(path, 'r') do |f|
   @video = f

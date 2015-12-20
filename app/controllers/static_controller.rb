@@ -20,6 +20,10 @@ class StaticController < ApplicationController
     end
   end
 
+  def angular
+    
+  end
+
   def is_developer
     redirect_to login_path unless current_developer
   end

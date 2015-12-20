@@ -1,3 +1,16 @@
-<div class="container" ng-controller="TestCtrl as test">
-    <h1>{{test.testVariable}}</h1>
+<div class="angular-container">
+    <h1>Log In</h1>
+    <form>
+        <label class="angular-label">Email</label><br>
+        <input type="email" ng-model="userEmail">
+        <br>
+        <label class="angular-label">Password</label><br>
+        <input type="password" ng-model="userPassword"><br>
+        <button type="submit" ng-click="submitForm()">Submit</button>
+    </form>
+    <pre>
+        Email: {{userEmail}}
+        Password: {{userPassword}}
+    </pre>
 </div>
+<div class="clearfix"></div>

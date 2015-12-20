@@ -1,0 +1,22 @@
+.angular-container {
+    float: left;
+
+}
+
+@media all and (min-width: 701px) {
+    .angular-container {
+        width: 70%;
+        margin-left: 15%;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .angular-container {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+.clearfix {
+    clear: both;
+}

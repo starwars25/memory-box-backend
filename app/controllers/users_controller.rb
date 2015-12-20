@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
       end
     else
-      render json: {error: 'no such user'}
+      render json: {error: 'no such user'}, status: :not_found
     end
   end
 
@@ -28,10 +28,10 @@ class UsersController < ApplicationController
       if user.update_attributes(user_params)
         render json: {result: 'success'}
       else
-        render json: {error: 'invalid data'}
+        render json: {error: 'invalid data'}, status: :bad_request
       end
     else
-      render json: {error: 'no such user'}
+      render json: {error: 'no such user'}, status: :not_found
     end
   end
 
@@ -41,13 +41,13 @@ class UsersController < ApplicationController
       user.destroy
       render json: {result: 'success'}
     else
-      render json: {error: 'no such user'}
+      render json: {error: 'no such user'}, status: :not_found
     end
   end
 
   def create
     if params[:user][:password] != params[:user][:password_confirmation]
-      render json: {error: 'passwords do not match'}
+      render json: {error: 'passwords do not match'}, status: :bad_request
       return
     end
     user = User.new(user_params)
@@ -56,14 +56,14 @@ class UsersController < ApplicationController
     begin
       user.generate_password(params[:user][:password])
     rescue
-      render json: {error: 'invalid password'}
+      render json: {error: 'invalid password'}, status: :bad_request
       return
     end
     if user.save
-      render json: {result: 'success'}
+      render json: {result: 'success', id: user.id}, status: :created
 
     else
-      render json: {error: 'invalid params'}
+      render json: {error: 'invalid params'}, status: :bad_request
     end
 
 
@@ -75,10 +75,10 @@ class UsersController < ApplicationController
       if user.id == current_user.id
         render json: {changes: user.changes_after?(params[:time])}
       else
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
       end
     else
-      render json: {error: 'no such user'}
+      render json: {error: 'no such user'}, status: :not_found
     end
   end
 
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
       render json: {result: user.token_valid?(params[:token])}
 
     else
-      render json: {result: 'failure', description: 'no such user'}
+      render json: {result: 'failure', description: 'no such user'}, status: :not_found
     end
   end
 
@@ -103,11 +103,11 @@ class UsersController < ApplicationController
 
 
   def logged_in
-    render json: {result: 'failure', description: 'not logged in'} unless current_user
+    render json: {result: 'failure', description: 'not logged in'}, status: :unauthorized unless current_user
   end
 
   def correct_user
-    render json: {result: 'failure', description: 'wrong user'} unless current_user.id == params[:id].to_i
+    render json: {result: 'failure', description: 'wrong user'}, status: :forbidden unless current_user.id == params[:id].to_i
   end
 
 

@@ -9,9 +9,9 @@ class BoxesController < ApplicationController
       params[:box][:users].each {|u| box.add_user u}
       box.reload
       ids = box.users_ids
-      render json: {result: 'success', title: box.title, members: ids}
+      render json: {result: 'success', title: box.title, members: ids, id: box.id}, status: :created
     else
-      render json: {result: 'failure', description: 'invalid params'}
+      render json: {result: 'failure', description: 'invalid params'}, status: :bad_request
     end
   end
 
@@ -21,7 +21,7 @@ class BoxesController < ApplicationController
       box.remove_user(params[:box][:user_id])
       render json: {result: 'success'}
     else
-      render json: {result: 'failure', description: 'no such box'}
+      render json: {result: 'failure', description: 'no such box'}, status: :not_found
     end
   end
 
@@ -31,10 +31,10 @@ class BoxesController < ApplicationController
       if box.is_member current_user.id
         render json: box, root: false
       else
-        render json: {result: 'failure', description: 'not a member of the box'}
+        render json: {result: 'failure', description: 'not a member of the box'}, status: :forbidden
       end
     else
-      render json: {result: 'failure', description: 'no such box'}
+      render json: {result: 'failure', description: 'no such box'}, status: :not_found
     end
   end
 
@@ -45,15 +45,15 @@ class BoxesController < ApplicationController
         if box.update(box_params)
           render json: {result: 'success'}
         else
-          render json: {result: 'failure', description: 'invalid params'}
+          render json: {result: 'failure', description: 'invalid params'}, status: :bad_request
 
         end
       else
-        render json: {result: 'failure', description: 'not a member of the box'}
+        render json: {result: 'failure', description: 'not a member of the box'}, status: :forbidden
       end
 
     else
-      render json: {result: 'failure', description: 'no such box'}
+      render json: {result: 'failure', description: 'no such box'}, status: :not_found
     end
   end
 
@@ -64,11 +64,11 @@ class BoxesController < ApplicationController
         box.destroy
         render json: {result: 'success'}
       else
-        render json: {result: 'failure', description: 'not a member of the box'}
+        render json: {result: 'failure', description: 'not a member of the box'}, status: :forbidden
       end
 
     else
-      render json: {result: 'failure', description: 'no such box'}
+      render json: {result: 'failure', description: 'no such box'}, status: :not_found
     end
   end
 
@@ -79,18 +79,18 @@ class BoxesController < ApplicationController
         params[:box][:users].each {|u| box.add_user u}
         render json: {result: 'success'}
       else
-        render json: {result: 'failure', description: 'not a member of the box'}
+        render json: {result: 'failure', description: 'not a member of the box'}, status: :forbidden
       end
 
     else
-      render json: {result: 'failure', description: 'no such box'}
+      render json: {result: 'failure', description: 'no such box'}, status: :not_found
     end
 
   end
 
   private
   def logged_in
-    render json: {result: 'failure', description: 'not logged in'} unless current_user
+    render json: {result: 'failure', description: 'not logged in'}, status: :unauthorized unless current_user
   end
 
   def box_params

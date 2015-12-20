@@ -15,11 +15,11 @@ class ArgumentsController < ApplicationController
       if argument.users.include?(current_user)
         render json: argument, root: false
       else
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
       end
 
     else
-      render json: {error: 'no such argument'}
+      render json: {error: 'no such argument'}, status: :not_found
     end
   end
 
@@ -29,15 +29,15 @@ class ArgumentsController < ApplicationController
       if box.users.include?(current_user)
         argument = Argument.new(argument_params)
         if argument.save
-          render json: {result: 'success'}
+          render json: {result: 'success', id: argument.id}, status: :created
         else
-          render json: {error: 'invalid params'}
+          render json: {error: 'invalid params'}, status: :bad_request
         end
       else
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
       end
     else
-      render json: {error: 'no such box'}
+      render json: {error: 'no such box'}, status: :not_found
     end
   end
 
@@ -48,13 +48,13 @@ class ArgumentsController < ApplicationController
         if argument.destroy
           render json: {result: 'success'}
         else
-          render json: {error: 'some error happened'}
+          render json: {error: 'some error happened'}, status: :internal_server_error
         end
       else
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
       end
     else
-      render json: {error: 'no such argument'}
+      render json: {error: 'no such argument'}, status: :not_found
     end
   end
 
@@ -67,10 +67,10 @@ class ArgumentsController < ApplicationController
         render json: {result: 'success'}
 
       else
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
       end
     else
-      render json: {error: 'no such argument'}
+      render json: {error: 'no such argument'}, status: :not_found
     end
   end
 
@@ -79,7 +79,7 @@ class ArgumentsController < ApplicationController
     if argument
       if argument.has_user? current_user.id
         if argument.activated
-          render json: {error: 'already has video'}
+          render json: {error: 'already has video'}, status: :forbidden
         else
           tempfile = Tempfile.new('video_upload')
           tempfile.binmode
@@ -97,12 +97,12 @@ class ArgumentsController < ApplicationController
         end
       else
 
-        render json: {error: 'wrong user'}
+        render json: {error: 'wrong user'}, status: :forbidden
 
       end
 
     else
-      render json: {error: 'no such argument'}
+      render json: {error: 'no such argument'}, status: :not_found
     end
 
   end
@@ -110,7 +110,7 @@ class ArgumentsController < ApplicationController
   private
 
   def logged_in
-    render json: {error: 'not logged in'} unless current_user
+    render json: {error: 'not logged in'}, status: :unauthorized unless current_user
   end
 
   def argument_params

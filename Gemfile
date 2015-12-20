@@ -23,6 +23,7 @@ gem 'bcrypt'
 gem 'faker'
 gem 'database_cleaner'
 gem 'carrierwave'
+gem 'carrierwave-video-thumbnailer'
 gem 'byebug'
 gem 'active_model_serializers'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

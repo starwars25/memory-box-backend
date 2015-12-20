@@ -15,4 +15,24 @@ module ApplicationHelper
       nil
     end
   end
+
+  def update_test_users
+    path = File.dirname(__FILE__)
+    path = File.expand_path('../..', path)
+    path = File.join(path, '/public/test.mp4')
+    File.open(path, 'r') do |f|
+      (1..50).each do |i|
+        argument = Argument.find_by(id: i)
+        if argument
+          argument.video = f
+          argument.save
+        end
+      end
+    end
+  end
+
+
 end
+
+
+

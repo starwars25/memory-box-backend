@@ -6,7 +6,10 @@ class BoxesController < ApplicationController
     box = Box.create(title: params[:box][:title])
     if box
       box.add_user current_user.id
-      params[:box][:users].each {|u| box.add_user u}
+      if params[:box][:users]
+        params[:box][:users].each { |u| box.add_user u }
+
+      end
       box.reload
       ids = box.users_ids
       render json: {result: 'success', title: box.title, members: ids, id: box.id}, status: :created
@@ -76,7 +79,7 @@ class BoxesController < ApplicationController
     box = Box.find_by(id: params[:id])
     if box
       if box.is_member current_user.id
-        params[:box][:users].each {|u| box.add_user u}
+        params[:box][:users].each { |u| box.add_user u }
         render json: {result: 'success'}
       else
         render json: {result: 'failure', description: 'not a member of the box'}, status: :forbidden

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by(id: params[:id])
+    user = User.find_by(id: params[:id]).includes(:boxes, :arguments)
     # byebug
     if user
       if current_user && current_user.id == params[:id].to_i

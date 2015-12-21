@@ -16,6 +16,16 @@ module ApplicationHelper
     end
   end
 
+  def recreate_thumbnails
+    Argument.find_each do |a|
+      begin
+        a.video.recreate_versions!
+      rescue
+        puts a
+      end
+    end
+  end
+
   def update_test_users
     path = File.dirname(__FILE__)
     path = File.expand_path('../..', path)

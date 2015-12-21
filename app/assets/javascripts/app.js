@@ -192,10 +192,10 @@
             templateUrl: 'templates/boxes.html'
         }
     });
-    app.directive('header', function() {
+    app.directive('pageHeader', function() {
         return {
             restrict: 'E',
-            templateUrl: 'templates/header.html',
+            templateUrl: 'templates/page-header.html',
             controller: 'HeaderCtrl'
         }
     });

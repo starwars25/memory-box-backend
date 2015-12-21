@@ -74,6 +74,16 @@
 
                 });
 
+            },
+            concatStrings: function(array) {
+                var output = '';
+                for(var i = 0; i < array.length; i++) {
+                    output += array[i];
+                    if (i != array.length - 1) {
+                        output += ', '
+                    }
+                }
+                return output;
             }
         }
     }]);
@@ -94,18 +104,51 @@
             $scope.user = {};
             $http(request).then(function (response) {
                 if(response.status === 200) {
+
                     console.log(response.data);
                     $scope.boxes = response.data.boxes;
+
                     $scope.user.name = response.data.name;
                     $scope.user.avatar = response.data.avatar.avatar.url;
-                    $timeout(function() {
-                        $common.equalHeights();
-                    }, 10);
+                    for(var i = 0; i < response.data.boxes.length; i++) {
+                        getUsersInBox(response.data.boxes[i]);
+                    }
                 }
             }, function (response) {
 
             });
         };
+
+
+        var getUsersInBox = function (box) {
+            box.users = [];
+            for(var i = 0; i < box.users_ids.length; i++) {
+                getUser(box.users_ids[i], function(data) {
+                     box.users.push(data.name);
+                });
+            }
+        };
+        var getUser = function(id, complete) {
+            var request = {
+                method: 'GET',
+                url: '/users/' + id,
+                headers: {
+                    "token": $cookies.get('token'),
+                    "user-id": $cookies.get('user-id')
+                }
+            };
+            $http(request).then(function (response) {
+                if(response.status === 200) {
+                    complete(response.data);
+                }
+            }, function (response) {
+
+            });
+
+        };
+
+        $scope.listUsers = $common.concatStrings;
+
         getInfo();
     }]);
 
@@ -150,10 +193,19 @@
 
     app.controller('ArgumentCtrl', ['$scope', '$cookies', '$http', '$location', '$common', '$routeParams', '$timeout', function($scope, $cookies, $http, $location, $common, $routeParams, $timeout) {
         $common.redirectIfNotLoggedIn();
+        var userLoaded = false;
+        var argumentLoaded = false;
+        var loaded = false;
         $common.getUser($scope, function() {
-            $timeout(function() {
-                $common.equalHeights();
-            }, 100);
+            userLoaded = true;
+            if(!loaded && argumentLoaded) {
+
+                $timeout(function() {
+                    $common.equalHeights();
+                    loaded = true;
+                }, 50);
+            }
+
 
         });
         var request = {
@@ -165,12 +217,18 @@
             }
         };
         $http(request).then(function(response) {
+
             if (response.status === 200) {
                 $scope.argument = response.data;
+                argumentLoaded = true;
                 console.log(response.data);
-                $timeout(function() {
-                    $common.equalHeights();
-                }, 500);
+                if(!loaded && userLoaded) {
+                    $timeout(function() {
+                        $common.equalHeights();
+                        loaded = true;
+                    }, 50);
+                }
+
             }
         }, function(response) {
 

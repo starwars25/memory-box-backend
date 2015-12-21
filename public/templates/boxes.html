@@ -2,4 +2,5 @@
 <div class="angular-box" ng-repeat="box in boxes">
     <h1><a href="#/boxes/{{box.id}}">{{box.title}}</a></h1>
     <h3>{{box.date_of_establishment}}</h3>
+    <p>Users: {{listUsers(box.users)}}</p>
 </div>

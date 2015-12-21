@@ -11,7 +11,10 @@ def create_user
 end
 
 def create_boxes
-  @box = Box.create(title: Faker::Lorem.words(3), date_of_establishment: Time.now)
+  words = Faker::Lorem.words(3)
+  words[0].capitalize!
+  title = words.join(' ')
+  @box = Box.create(title: title, date_of_establishment: Time.now)
   amount = rand(2..6)
   amount.times do
     @box.reload

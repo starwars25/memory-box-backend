@@ -49,12 +49,17 @@
 }
 
 .angular-header {
-    background-color: blue;
+    background-color: #609333;
+    border-bottom-right-radius: 5px;
 }
 
 .angular-header a {
-    color: black;
+    font-size: 150%;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
 }
+
 
 .angular-header ul {
     margin: 0;
@@ -62,22 +67,58 @@
 }
 
 .angular-header li {
-    display: inline;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 0;
+    padding: 10px 5px;
+
+}
+
+.angular-header li:hover {
+    background-color: #abcc8f;
 }
 
 .angular-main {
-    background-color: red;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #e5e5e5 !important;
 
 }
 
 .angular-side {
-    background-color: grey;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #737373;
+    color: #d9d9d9;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+a {
+    color: black;
+}
+
+.angular-box {
+    border: 2px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 90%;
+}
+
+.angular-box:hover {
+    background-color: #f2f2f2;
+}
+
+body {
 }
 
 .angular-avatar {
     float: left;
     width: 95%;
     margin-left: 2.5%;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
 

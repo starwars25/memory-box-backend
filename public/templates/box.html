@@ -1,0 +1,16 @@
+<header></header>
+<div class="angular-container">
+    <div side-bar>
+
+    </div>
+    <div class="angular-main">
+        <h1>{{box.title}}</h1>
+        <h2>{{box.date_of_establishment}}</h2>
+        <div class="angular-arguments" ng-repeat="argument in box.arguments">
+            <h1><a href="#/arguments/{{argument.id}}">{{argument.title}}</a></h1>
+            <p>{{argument.description}}</p>
+            <p>Established: {{argument.established}}</p>
+            <p>Expires: {{argument.expires}}</p>
+        </div>
+    </div>
+</div>

@@ -36,26 +36,50 @@
     app.controller('RegisterCtrl', [function () {
     }]);
 
-    app.controller('MainCtrl', ['$location', '$scope', '$timeout', '$cookies', '$http', function($location, $scope, $timeout, $cookies, $http) {
-        var equalHeights = function() {
-            var sideHeight = $('.angular-side').height();
-            var mainHeight = $('.angular-main').height();
-            if (sideHeight > mainHeight) {
-                $('.angular-main').height(sideHeight);
-            } else {
-                $('.angular-side').height(mainHeight);
+    app.factory('$common', ['$cookies', '$location', '$http', function($cookies, $location, $http) {
+        return {
+            redirectIfNotLoggedIn: function() {
+                if ($cookies.get('token') === undefined || $cookies.get('user-id') === undefined) {
+                    $location.path('/login');
+                }
+
+            },
+            equalHeights: function() {
+                var sideHeight = $('.angular-side').height();
+                var mainHeight = $('.angular-main').height();
+                if (sideHeight > mainHeight) {
+                    $('.angular-main').height(sideHeight);
+                } else {
+                    $('.angular-side').height(mainHeight);
+
+                }
+            },
+            getUser: function(scope, finish) {
+                scope.user = {};
+                var request = {
+                    method: 'GET',
+                    url: '/users/' + $cookies.get('user-id'),
+                    headers: {
+                        "token": $cookies.get('token'),
+                        "user-id": $cookies.get('user-id')
+                    }
+                };
+                $http(request).then(function (response) {
+                    if(response.status === 200) {
+                        scope.user.name = response.data.name;
+                        scope.user.avatar = response.data.avatar.avatar.url;
+                        finish();
+                    }
+                }, function (response) {
+
+                });
 
             }
-        };
-        var redirectIfNotLoggedInt = function() {
-            if ($cookies.get('token') === undefined || $cookies.get('user-id') === undefined) {
-                $location.path('/login');
-            }
-        };
-        redirectIfNotLoggedInt();
-        $timeout(function() {
-           //equalHeights();
-        }, 10);
+        }
+    }]);
+
+    app.controller('MainCtrl', ['$location', '$scope', '$timeout', '$cookies', '$http', '$common', function($location, $scope, $timeout, $cookies, $http, $common) {
+        $common.redirectIfNotLoggedIn();
         $scope.boxes = undefined;
         var getInfo = function() {
             console.log('get info');
@@ -75,7 +99,7 @@
                     $scope.user.name = response.data.name;
                     $scope.user.avatar = response.data.avatar.avatar.url;
                     $timeout(function() {
-                        equalHeights();
+                        $common.equalHeights();
                     }, 10);
                 }
             }, function (response) {
@@ -96,7 +120,66 @@
         };
     }]);
 
-    app.directive('sideBar', function() {
+    app.controller('BoxCtrl', ['$scope', '$cookies', '$http', '$location', '$common', '$routeParams', '$timeout', function($scope, $cookies, $http, $location, $common, $routeParams, $timeout) {
+        $common.redirectIfNotLoggedIn();
+        $common.getUser($scope, function() {
+            //$timeout(function () {
+            //    $common.equalHeights();
+            //}, 100)
+        });
+        var request = {
+            method: 'GET',
+            url: '/boxes/' + $routeParams.id,
+            headers: {
+                "token": $cookies.get('token'),
+                "user-id": $cookies.get('user-id')
+            }
+        };
+        $http(request).then(function(response) {
+            if (response.status === 200) {
+                $scope.box = response.data;
+                console.log(response.data);
+                $timeout(function() {
+                    $common.equalHeights();
+                }, 20);
+            }
+        }, function(response) {
+
+        });
+    }]);
+
+    app.controller('ArgumentCtrl', ['$scope', '$cookies', '$http', '$location', '$common', '$routeParams', '$timeout', function($scope, $cookies, $http, $location, $common, $routeParams, $timeout) {
+        $common.redirectIfNotLoggedIn();
+        $common.getUser($scope, function() {
+            $timeout(function() {
+                $common.equalHeights();
+            }, 100);
+
+        });
+        var request = {
+            method: 'GET',
+            url: '/arguments/' + $routeParams.id,
+            headers: {
+                "token": $cookies.get('token'),
+                "user-id": $cookies.get('user-id')
+            }
+        };
+        $http(request).then(function(response) {
+            if (response.status === 200) {
+                $scope.argument = response.data;
+                console.log(response.data);
+                $timeout(function() {
+                    $common.equalHeights();
+                }, 500);
+            }
+        }, function(response) {
+
+        });
+
+    }]);
+
+
+        app.directive('sideBar', function() {
         return {
             restrict: 'A',
             templateUrl: 'templates/side-bar.html'
@@ -131,6 +214,14 @@
             templateUrl: 'templates/main.html',
             controller: 'MainCtrl',
             controllerAs: 'main'
+        });
+        $routeProvider.when('/boxes/:id', {
+            templateUrl: 'templates/box.html',
+            controller: 'BoxCtrl'
+        });
+        $routeProvider.when('/arguments/:id', {
+            templateUrl: 'templates/argument.html',
+            controller: 'ArgumentCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/'

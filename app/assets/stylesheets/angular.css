@@ -99,11 +99,19 @@ a {
 }
 
 .angular-box {
-    border: 2px solid black;
+    border: 1px solid #cccccc;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 90%;
+}
+
+.angular-box h1 {
+    margin-top: 0;
+}
+
+.angular-box p {
+    margin-bottom: 0;
 }
 
 .angular-box:hover {

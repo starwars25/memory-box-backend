@@ -89,10 +89,10 @@
     }]);
 
     app.controller('MainCtrl', ['$location', '$scope', '$timeout', '$cookies', '$http', '$common', function($location, $scope, $timeout, $cookies, $http, $common) {
+        console.log('MainCtrl');
         $common.redirectIfNotLoggedIn();
         $scope.boxes = undefined;
         var getInfo = function() {
-            console.log('get info');
             var request = {
                 method: 'GET',
                 url: '/users/' + $cookies.get('user-id'),
@@ -105,7 +105,6 @@
             $http(request).then(function (response) {
                 if(response.status === 200) {
 
-                    console.log(response.data);
                     $scope.boxes = response.data.boxes;
 
                     $scope.user.name = response.data.name;
@@ -164,6 +163,7 @@
     }]);
 
     app.controller('BoxCtrl', ['$scope', '$cookies', '$http', '$location', '$common', '$routeParams', '$timeout', function($scope, $cookies, $http, $location, $common, $routeParams, $timeout) {
+        console.log('BoxCtrl');
         $common.redirectIfNotLoggedIn();
         $common.getUser($scope, function() {
             //$timeout(function () {
@@ -181,7 +181,6 @@
         $http(request).then(function(response) {
             if (response.status === 200) {
                 $scope.box = response.data;
-                console.log(response.data);
                 $timeout(function() {
                     $common.equalHeights();
                 }, 20);
@@ -192,6 +191,7 @@
     }]);
 
     app.controller('ArgumentCtrl', ['$scope', '$cookies', '$http', '$location', '$common', '$routeParams', '$timeout', function($scope, $cookies, $http, $location, $common, $routeParams, $timeout) {
+        console.log('ArgumentCtrl');
         $common.redirectIfNotLoggedIn();
         var userLoaded = false;
         var argumentLoaded = false;
@@ -221,7 +221,6 @@
             if (response.status === 200) {
                 $scope.argument = response.data;
                 argumentLoaded = true;
-                console.log(response.data);
                 if(!loaded && userLoaded) {
                     $timeout(function() {
                         $common.equalHeights();

@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require angular.min
+//= require angular-route.min
+//= require angular-cookies.min
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require app

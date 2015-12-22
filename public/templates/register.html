@@ -1,3 +1,13 @@
-<div class="container" ng-controller="RegisterCtrl as register">
-    <h1>{{register.testVariable}}</h1>
+<page-header></page-header>
+<div class="angular-form">
+    <form ng-submit="signup()"><label>Nickname</label><br>
+    <input type="text" ng-model="nickname"><br>
+    <label>Email</label><br>
+    <input type="email" ng-model="email">
+    <br>
+    <label>Password</label>
+    <input type="password" ng-model="password">
+    <label>Password Confirmation</label>
+    <input type="password" ng-model="passwordConfirmation">
+    <input type="submit"></form>
 </div>

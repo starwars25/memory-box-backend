@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'login', :to => 'static#login'
 
   get 'login', :to => 'static#sign_in'
-  get '/angular' => 'static#angular'
+  #get '/angular' => 'static#angular'
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -161,6 +161,7 @@
             return !($cookies.get('token') === undefined || $cookies.get('user-id') === undefined)
         };
         this.logOut = function () {
+
             $cookies.remove('token');
             $cookies.remove('user-id');
             $location.path('/login');

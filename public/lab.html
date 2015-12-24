@@ -1,0 +1,66 @@
+<html ng-app="JunoTravel">
+<head>
+    <title>Juno Travel ЖКХ Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="main.css" rel="stylesheet">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+<div class="navbar">
+    <span class="logo">
+        Juno Travel ЖКХ Service
+    </span>
+</div>
+<div class="container">
+    <h1>List of Complaints:</h1>
+    <div class="order-select">
+        <h4>Sort properties</h4>
+        <select ng-options="option.name for option in sortOptions" ng-model="sort"></select>
+        <select ng-options="option.name for option in orderOptions" ng-model="order"></select>
+    </div>
+    <div class="complaints">
+        <div class="complaint" ng-repeat="complaint in complaints | orderBy:order.value + sort.value">
+            <h3 class="complaint-title">{{complaint.theme}}: <span class="complaint-priority" ng-class="complaint.priorityClass">{{complaint.stringPriority}}</span></h3>
+
+
+            <p class="complaint-content">{{complaint.content}}</p>
+            <span class="complaint-date">{{complaint.createdAt | date:'d, MMM'}}</span>
+            <div class="answer" ng-show="complaint.answered">
+                <h4>Answer:</h4>
+                <p>{{complaint.answer}}</p>
+            </div>
+            <br ng-hide="complaint.answered">
+            <button ng-click="getAnswerForm(complaint)" ng-hide="complaint.getAnswerForm || complaint.answered" class="button-secondary">Answer</button>
+            <form name="answer_form" ng-show="complaint.getAnswerForm" ng-submit="answer_form.$valid && addAnswer(complaint)" class="answer-form">
+                <button ng-click="cancelAnswerForm(complaint)" class="button-secondary button-cancel">Cancel</button>
+                <br>
+                <label>Answer</label>
+                <br>
+                <textarea ng-minlength="10" ng-maxlength="140" ng-model="complaint.answer" class="form-input" required></textarea>
+                <button type="submit" class="button-secondary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <h3>Add complaint</h3>
+    <form ng-submit="add_complaint.$valid && addComplaint()" name="add_complaint" class="add-form">
+        <label>Priority</label>
+        <br>
+        <select ng-model="priority" ng-options="option.name for option in options"></select>
+        <br>
+        <label>Theme</label>
+        <br>
+        <input type="text" ng-model="theme" ng-minlength="4" ng-maxlength="15" required class="form-input">
+        <br>
+        <label>Content</label>
+        <br>
+        <textarea ng-model="content" ng-minlength="10" ng-maxlength="140" required class="form-input"></textarea>
+        <br>
+        <button type="submit">Add complaint</button>
+    </form>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+</body>
+</html>

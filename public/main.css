@@ -43,6 +43,12 @@ body {
 
 }
 
+.tab.selected-tab:hover {
+    background-color: #b31212;
+
+}
+
+
 .tab {
     display: inline-block;
     background-color: #3060bf;
@@ -54,6 +60,11 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-right: 10px;
+}
+
+.tab:hover {
+    background-color: #134cbf;
+
 }
 
 .tabs {

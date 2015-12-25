@@ -10,7 +10,7 @@
 <body ng-controller="MainCtrl">
 <div class="navbar">
     <span class="logo">
-        Juno Travel ЖКХ Service
+        Juno Travel Service Call Center
     </span>
 </div>
 <div class="container">
@@ -20,8 +20,13 @@
         <select ng-options="option.name for option in sortOptions" ng-model="sort"></select>
         <select ng-options="option.name for option in orderOptions" ng-model="order"></select>
     </div>
+    <div class="tabs-container">
+        <ul class="tabs">
+            <li class="tab" ng-repeat="tab in tabs" ng-click="setSelectedTab(tab.value)" ng-class="{'selected-tab': selectedTab === tab.value}">{{tab.name}}</li>
+        </ul>
+    </div>
     <div class="complaints">
-        <div class="complaint" ng-repeat="complaint in complaints | orderBy:order.value + sort.value">
+        <div class="complaint" ng-repeat="complaint in complaints | orderBy:order.value + sort.value | filter : complaintFilter">
             <h3 class="complaint-title">{{complaint.theme}}: <span class="complaint-priority" ng-class="complaint.priorityClass">{{complaint.stringPriority}}</span></h3>
 
 
@@ -48,6 +53,10 @@
         <label>Priority</label>
         <br>
         <select ng-model="priority" ng-options="option.name for option in options"></select>
+        <br>
+        <label>Category</label>
+        <br>
+        <select ng-model="category" ng-options="option.name for option in categoryOptions"></select>
         <br>
         <label>Theme</label>
         <br>

@@ -38,6 +38,28 @@ body {
     background-color: white !important;
 }
 
+.tab.selected-tab {
+    background-color: #b33636;
+
+}
+
+.tab {
+    display: inline-block;
+    background-color: #3060bf;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.tabs {
+    padding-left: 0;
+}
+
 @media all and (min-width: 701px) {
     .container {
         margin-left: 12.5%;

@@ -8,7 +8,8 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
         answered: false,
         createdAt: new Date().setSeconds(new Date().getSeconds() - 60 * 60 * 24),
         stringPriority: 'High',
-        priorityClass: 'high'
+        priorityClass: 'high',
+        category: 0
     }, {
         theme: 'Nuclear Explosion in the Downtown',
         content: "People are afraid and are trying to reach the Vault 111. Organize the evacuation now.",
@@ -16,7 +17,8 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
         answered: false,
         createdAt: new Date().setSeconds(new Date().getSeconds() - 60 * 60 * 24 * 14),
         stringPriority: 'Urgent',
-        priorityClass: 'urgent'
+        priorityClass: 'urgent',
+        category: 0
 
     }, {
         theme: 'Supemutant invasion on the North',
@@ -26,7 +28,8 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
         answer: 'Supermutants defeated.',
         createdAt: new Date().setSeconds(new Date().getSeconds() - 60 * 60 * 24 * 2),
         stringPriority: 'Normal',
-        priorityClass: 'normal'
+        priorityClass: 'normal',
+        category: 1
 
     }];
     $scope.addComplaint = function () {
@@ -60,12 +63,15 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
             answered: false,
             createdAt: new Date(),
             stringPriority: stringPriority,
-            priorityClass: priorityClass
+            priorityClass: priorityClass,
+            category: $scope.category.value
         });
         $scope.priority = $scope.options[0];
+        $scope.category = $scope.categoryOptions[0];
         $scope.content = '';
         $scope.theme = '';
         $scope.add_complaint.$setPristine();
+        $scope.selectedTab = -1;
     };
     $scope.addAnswer = function (complaint) {
         console.log(complaint.temp_answer);
@@ -129,4 +135,47 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
         }
     ];
     $scope.priority = $scope.options[0];
+    $scope.categoryOptions = [
+        {
+            name: 'Airships Service',
+            value: 0
+        },
+        {
+            name: 'Planetary Service',
+            value: 1
+        },
+        {
+            name: 'Ticket Service',
+            value: 2
+        },
+        {
+            name: 'Port Service',
+            value: 3
+        },
+        {
+            name: 'Application Troubleshoot',
+            value: 4
+        },
+        {
+            name: 'Other',
+            value: 5
+        }
+    ];
+    $scope.category = $scope.categoryOptions[0];
+    $scope.selectedTab = -1;
+    $scope.setSelectedTab = function(tab) {
+        $scope.selectedTab = tab;
+    };
+    $scope.complaintFilter = function (value, index, array) {
+        if ($scope.selectedTab === -1) {
+            return true;
+        }
+        return value.category === $scope.selectedTab;
+    };
+    $scope.tabs = $scope.categoryOptions.slice(0);
+    $scope.tabs.unshift({
+        name: 'All',
+        value: -1
+    });
+    console.log($scope.tabs);
 }]);
